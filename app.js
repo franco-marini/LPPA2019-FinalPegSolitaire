@@ -13,8 +13,14 @@ var dynamicBoard = '<ul>'
 for (row = 0; row < initialState.length; row++) {
     dynamicBoard += '<li>' 
     for (column = 0; column < initialState[row].length; column++) {
-        if(initialState[row][column] == 1 || initialState[row][column] == 0 ){
-            dynamicBoard += '<button></button>'
+        if(initialState[row][column] == 1){
+            dynamicBoard += '<button class="ball-place"></button>'
+        }
+        else if (initialState[row][column] == 0){
+            dynamicBoard += '<button class="ball-place-empty"></button>'
+        }
+        else{
+            dynamicBoard += '<button class="empty-space" disabled></button>'
         }
     }
     dynamicBoard += '</li>'

@@ -1,0 +1,146 @@
+body{
+    background-color: #82a5be;
+    min-width: 350px;
+}
+
+#content{
+    font-family: Arial, Helvetica, sans-serif;
+    color: 	#144e77;
+    display:  flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: 	#a7c1d4 ;
+    padding-top: 15px;
+    margin: 10px 10px 0 10px;
+}
+
+.header-title{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.header-image{
+    width: 50px;
+    height: 50px;
+    padding-right: 10px;
+}
+
+.header-description{
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+}
+
+#board{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color:	#d7e6f1;
+    margin: 10px 10px 10px 10px;
+    padding: 10px;
+}
+
+.ball-place{
+    background-color: #105ebb;
+    border: 2px solid #013d78;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 8px;
+    box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
+}
+
+.ball-place-empty{
+    background-color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 8px;
+}
+
+.empty-space{
+    background-color: transparent;
+    border: transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 8px;
+}
+
+footer{
+    text-align: center;
+    background-color: 	#a7c1d4 ;
+    margin: 0 10px 10px 10px;
+    padding-top: 15px;
+}
+
+.footer-title{
+    align-items: center;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.footer-description{
+    padding: 10px 10px 8px 10px;
+    text-align: center;
+    font-size: 10px;
+}
+
+footer .footer-description p {
+    margin: 6px;
+}
+
+@media (min-width: 500px){
+    .header-title, .footer-title{
+        font-size: 15px;
+    }
+    
+    .header-description, .footer-description{
+        font-size: 10px;
+    }
+
+    .ball-place, .ball-place-empty, .empty-space{
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+    }
+}
+
+@media (min-width: 1000px){
+    .header-title, .footer-title{
+        font-size: 18px;
+    }
+    
+    .header-description, .footer-description{
+        font-size: 12px;
+    }
+    .ball-place, .ball-place-empty, .empty-space{
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+    }
+}
+
+@media (min-width: 1200px){
+    .header-title, .footer-title{
+        font-size: 22px;
+    }
+    
+    .header-description, .footer-description{
+        font-size: 16px;
+    }
+
+    .ball-place, .ball-place-empty, .empty-space{
+        width: 45px;
+        height: 45px;
+        border-radius: 45px;
+    }
+}
