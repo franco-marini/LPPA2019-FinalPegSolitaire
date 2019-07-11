@@ -1,4 +1,8 @@
 body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     background-color: #82a5be;
     min-width: 350px;
 }
@@ -42,13 +46,12 @@ header{
 #board{
     display: flex;
     justify-content: center;
-    align-content: center;
     background-color:	#d7e6f1;
     margin: 10px 10px 10px 10px;
     padding: 10px;
 }
 
-.ball-place{
+.ballPlace{
     background-color: #105ebb;
     border: 2px solid #013d78;
     width: 20px;
@@ -58,17 +61,46 @@ header{
     box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
 }
 
-.ball-place-empty{
+.ballPlace:hover{
+    background-color: #82a5be;
+    border: 2px solid #d7e6f1;
+}
+
+.ballSelected{
+    background-color: #d7e6f1;
+    border: 2px solid #82a5be;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 8px;
+    box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
+}
+
+.ballPlaceEmpty{
     background-color: #fff;
+    border: #82a5be solid 2px;
     width: 20px;
     height: 20px;
     border-radius: 20px;
     margin: 8px;
 }
 
-.empty-space{
-    background-color: transparent;
-    border: transparent;
+.ballPlaceEmpty:hover{
+    /*Dosent apears the hand on the cursor*/
+    cursor: default;
+}
+
+.ballPlaceAvailable{
+    background-color: #aadab4;
+    border: #82be87 solid 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin: 8px;
+}
+
+.hidden{
+    visibility: hidden;
     width: 20px;
     height: 20px;
     border-radius: 20px;
@@ -107,7 +139,7 @@ footer .footer-description p {
         font-size: 10px;
     }
 
-    .ball-place, .ball-place-empty, .empty-space{
+    .ballPlace, .ballPlaceEmpty, .ballPlaceAvailable, .hidden, .ballSelected{
         width: 30px;
         height: 30px;
         border-radius: 30px;
@@ -122,7 +154,7 @@ footer .footer-description p {
     .header-description, .footer-description{
         font-size: 12px;
     }
-    .ball-place, .ball-place-empty, .empty-space{
+    .ballPlace, .ballPlaceEmpty, .ballPlaceAvailable, .hidden, .ballSelected{
         width: 40px;
         height: 40px;
         border-radius: 40px;
@@ -138,7 +170,7 @@ footer .footer-description p {
         font-size: 16px;
     }
 
-    .ball-place, .ball-place-empty, .empty-space{
+    .ballPlace, .ballPlaceEmpty, .ballPlaceAvailable, .hidden, .ballSelected{
         width: 45px;
         height: 45px;
         border-radius: 45px;
