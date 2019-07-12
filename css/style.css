@@ -15,6 +15,14 @@ body{
     width: 100%;
 }
 
+#verticalMenu{
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    width: 150px;
+    background-color: #82a5be;
+}
+
 header{
     display: flex;
     flex-direction: column;
@@ -24,20 +32,20 @@ header{
     margin: 10px 10px 0 10px;
 }
 
-.header-title{
+.headerTitle{
     display: flex;
     align-items: center;
     font-size: 15px;
     font-weight: bolder;
 }
 
-.header-image{
+.headerImage{
     width: 50px;
     height: 50px;
     padding-right: 10px;
 }
 
-.header-description{
+.headerDescription{
     padding: 20px;
     text-align: center;
     font-size: 12px;
@@ -51,13 +59,16 @@ header{
     padding: 10px;
 }
 
-.ballPlace{
-    background-color: #105ebb;
-    border: 2px solid #013d78;
+#board button {
     width: 20px;
     height: 20px;
     border-radius: 20px;
     margin: 8px;
+}
+
+.ballPlace{
+    background-color: #105ebb;
+    border: 2px solid #013d78;
     box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
 }
 
@@ -69,42 +80,26 @@ header{
 .ballSelected{
     background-color: #d7e6f1;
     border: 2px solid #82a5be;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    margin: 8px;
     box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
 }
 
 .ballPlaceEmpty{
     background-color: #fff;
     border: #82a5be solid 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    margin: 8px;
 }
 
 .ballPlaceEmpty:hover{
-    /*Dosent apears the hand on the cursor*/
+    /*Dosent apear the hand on the cursor*/
     cursor: default;
 }
 
 .ballPlaceAvailable{
     background-color: #aadab4;
     border: #82be87 solid 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    margin: 8px;
 }
 
 .hidden{
     visibility: hidden;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    margin: 8px;
 }
 
 footer{
@@ -114,32 +109,32 @@ footer{
     padding-top: 15px;
 }
 
-.footer-title{
+.footerTitle{
     align-items: center;
     font-size: 15px;
     font-weight: bolder;
 }
 
-.footer-description{
+.footerDescription{
     padding: 10px 10px 8px 10px;
     text-align: center;
     font-size: 10px;
 }
 
-footer .footer-description p {
+footer .footerDescription p {
     margin: 6px;
 }
 
 @media (min-width: 500px){
-    .header-title, .footer-title{
+    .headerTitle, .footerTitle{
         font-size: 15px;
     }
     
-    .header-description, .footer-description{
+    .headerDescription, .footerDescription{
         font-size: 10px;
     }
 
-    .ballPlace, .ballPlaceEmpty, .ballPlaceAvailable, .hidden, .ballSelected{
+    #board button{
         width: 30px;
         height: 30px;
         border-radius: 30px;
@@ -147,14 +142,15 @@ footer .footer-description p {
 }
 
 @media (min-width: 1000px){
-    .header-title, .footer-title{
+    .headerTitle, .footerTitle{
         font-size: 18px;
     }
     
-    .header-description, .footer-description{
+    .headerDescription, .footerDescription{
         font-size: 12px;
     }
-    .ballPlace, .ballPlaceEmpty, .ballPlaceAvailable, .hidden, .ballSelected{
+
+    #board button{
         width: 40px;
         height: 40px;
         border-radius: 40px;
@@ -162,15 +158,15 @@ footer .footer-description p {
 }
 
 @media (min-width: 1200px){
-    .header-title, .footer-title{
+    .headerTitle, .footerTitle{
         font-size: 22px;
     }
     
-    .header-description, .footer-description{
+    .headerDescription, .footerDescription{
         font-size: 16px;
     }
 
-    .ballPlace, .ballPlaceEmpty, .ballPlaceAvailable, .hidden, .ballSelected{
+    #board button{
         width: 45px;
         height: 45px;
         border-radius: 45px;
