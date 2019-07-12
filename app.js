@@ -8,6 +8,46 @@ var board = [
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined]
 ]
 
+//Saving a game
+//Returns the date and hour of today
+function getDate() {
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var dd = date.getDate();
+    var mm = (date.getMonth() + 1);
+
+    //Puts the 0 for the numbers below 2 digits
+    if (dd < 10)
+        dd = "0" + dd;
+
+    if (mm < 10)
+        mm = "0" + mm;
+
+    var currentDay = yyyy + "-" + mm + "-" + dd;
+
+    var hours = date.getHours()
+    console.log(hours)
+    var minutes = date.getMinutes()
+    var seconds = date.getSeconds();
+
+    //Puts the 0 for the numbers below 2 digits
+    if (hours < 10)
+        hours = "0" + hours;
+
+    if (minutes < 10)
+        minutes = "0" + minutes;
+
+    if (seconds < 10)
+        seconds = "0" + seconds;
+
+    return currentDay + "-" + hours + ":" + minutes + ":" + seconds;
+}
+
+
+
+
+
+//Functional of the game
 var selectedPeg = { x: undefined, y: undefined }
 
 var createId = function (rowN, colN) {
