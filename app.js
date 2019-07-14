@@ -2,13 +2,13 @@ var board = [
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined],
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined],
     [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
-    [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 0 }, { value: 1 }, { value: 1 }, { value: 1 }],
+    [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }, { value: 1 }, { value: 1 }, { value: 1 }],
     [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined],
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined]
 ]
 
-//Saving a game
+//#region Save a Game
 //Returns the date and hour of today
 function getDate() {
     var date = new Date();
@@ -43,11 +43,91 @@ function getDate() {
     return currentDay + "-" + hours + ":" + minutes + ":" + seconds;
 }
 
+function saveGame() {
 
+    var nameTxt = document.getElementById('nameTxt').value
 
+    var newGame = {
+        date: getDate(),
+        name: nameTxt,
+        actualGame: board
+    }
 
+    document.getElementById('nameTxt').value = ''
+    //Save the game with de date value as the primary key
+    localStorage.setItem(getDate().toString(), JSON.stringify(newGame))
+    drawGamesTable()
+}
 
-//Functional of the game
+function loadGame(){
+    board = findGame().actualGame
+    var boardElement = document.getElementById('board')
+    boardElement.innerHTML = generateBoard()
+    var pegs = boardElement.getElementsByClassName('ballPlace')
+    addPegsEventHandlers(pegs)
+}
+
+function loadGames() {
+
+    var storedGames = []
+
+    if (storedGames == null) {
+        storedGames = []
+    }
+    else {
+        //Get all the items of localStorage, then save in a new variable the items parsing from JSON format
+        for (var i = 0; i < localStorage.length; i++) {
+            game = localStorage.getItem(localStorage.key(i))
+            storedGames.push(JSON.parse(game))
+        }
+    }
+    return storedGames
+}
+
+function findGame() {
+    var storedGames = loadGames()
+    var rates = document.getElementsByName('rbtGame');
+    var rateValue;
+    //Checks which radio button is select
+    for (var i = 0; i < rates.length; i++) {
+        if (rates[i].checked) {
+            rateValue = rates[i].value;
+        }
+    }
+
+    //Compares the radio button selected with all the saved games
+    var game
+    for (let i = 0; i < storedGames.length; i++) {
+        //Search for the equal date
+        if (storedGames[i].date == rateValue) {
+            game = storedGames[i]
+        }
+    }
+
+    return game
+}
+
+function deleteGame() {
+    localStorage.removeItem(findGame().date)
+    drawGamesTable()
+}
+
+function drawGamesTable() {
+    var list = loadGames()
+    var divList = document.getElementById('listGames')
+
+    //Draw with HTML structure a list of the saved games
+    divList.innerHTML = '<ul>'
+    for (let i = 0; i < list.length; i++) {
+        //Converts/Parse JSON string into an object
+        game = JSON.parse(localStorage.getItem(localStorage.key(i)))
+        divList.innerHTML += '<li>' + game.date + " - " + game.name + '<input type="radio" name="rbtGame" value="' + game.date + '">' + '</li>'
+    }
+    divList.innerHTML += '</ul>'
+}
+//#endregion
+
+//#region Functional of the game
 var selectedPeg = { x: undefined, y: undefined }
 
 var createId = function (rowN, colN) {
@@ -102,39 +182,39 @@ var unselectPeg = function () {
     }
 }
 
-var getElement = function(id){
+var getElement = function (id) {
     var element = document.getElementById(id)
     return element || {}
 }
 
 var showSuggestions = function () {
-    var near= {
-        above:  getElement(createId(selectedPeg.x-1,selectedPeg.y)),
-        left:   getElement(createId(selectedPeg.x,selectedPeg.y-1)),
-        right:  getElement(createId(selectedPeg.x,selectedPeg.y+1)),
-        below:  getElement(createId(selectedPeg.x+1,selectedPeg.y))
+    var near = {
+        above: getElement(createId(selectedPeg.x - 1, selectedPeg.y)),
+        left: getElement(createId(selectedPeg.x, selectedPeg.y - 1)),
+        right: getElement(createId(selectedPeg.x, selectedPeg.y + 1)),
+        below: getElement(createId(selectedPeg.x + 1, selectedPeg.y))
     }
 
-    var possible= {
-        above:  getElement(createId(selectedPeg.x-2,selectedPeg.y)),
-        left:   getElement(createId(selectedPeg.x,selectedPeg.y-2)),
-        right:  getElement(createId(selectedPeg.x,selectedPeg.y+2)),
-        below:  getElement(createId(selectedPeg.x+2,selectedPeg.y))
+    var possible = {
+        above: getElement(createId(selectedPeg.x - 2, selectedPeg.y)),
+        left: getElement(createId(selectedPeg.x, selectedPeg.y - 2)),
+        right: getElement(createId(selectedPeg.x, selectedPeg.y + 2)),
+        below: getElement(createId(selectedPeg.x + 2, selectedPeg.y))
     }
 
-    if(near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty'){
+    if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
         possible.above.className = 'ballPlaceAvailable'
     }
 
-    if(near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty'){
+    if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
         possible.left.className = 'ballPlaceAvailable'
     }
 
-    if(near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty'){
+    if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
         possible.right.className = 'ballPlaceAvailable'
     }
 
-    if(near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty'){
+    if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
         possible.below.className = 'ballPlaceAvailable'
     }
 }
@@ -164,6 +244,7 @@ var addPegsEventHandlers = function (pegs) {
         pegs[i].onclick = selectPeg
     }
 }
+//#endregion
 
 //Initialize the game
 var init = function () {
@@ -171,6 +252,17 @@ var init = function () {
     boardElement.innerHTML = generateBoard()
     var pegs = boardElement.getElementsByClassName('ballPlace')
     addPegsEventHandlers(pegs)
+
+
+    drawGamesTable()
+    var btnSaveGame = document.getElementById('saveGame')
+    btnSaveGame.onclick = saveGame
+
+    var btnLoadGame = document.getElementById('loadGame')
+    btnLoadGame.onclick = loadGame
+
+    var btnDeleteGame = document.getElementById('deleteGame')
+    btnDeleteGame.onclick = deleteGame
 }
 
 window.onload = init
