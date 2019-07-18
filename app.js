@@ -2,7 +2,7 @@ var board = [
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined],
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined],
     [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
-    [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }, { value: 1 }, { value: 1 }, { value: 1 }],
+    [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 0 }, { value: 1 }, { value: 1 }, { value: 1 }],
     [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined],
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined]
@@ -26,7 +26,6 @@ function getDate() {
     var currentDay = yyyy + "-" + mm + "-" + dd;
 
     var hours = date.getHours()
-    console.log(hours)
     var minutes = date.getMinutes()
     var seconds = date.getSeconds();
 
@@ -41,6 +40,18 @@ function getDate() {
         seconds = "0" + seconds;
 
     return currentDay + "-" + hours + ":" + minutes + ":" + seconds;
+}
+
+
+function compare( a, b ) {
+    //Order the saved games by date
+    if ( a.date < b.date ){
+      return -1;
+    }
+    if ( a.date > b.date ){
+      return 1;
+    }
+    return 0;
 }
 
 function saveGame() {
@@ -79,8 +90,11 @@ function loadGames() {
         for (var i = 0; i < localStorage.length; i++) {
             game = localStorage.getItem(localStorage.key(i))
             storedGames.push(JSON.parse(game))
+
         }
     }
+    storedGames.sort(compare)
+    console.log(storedGames)
     return storedGames
 }
 
@@ -121,7 +135,7 @@ function drawGamesTable() {
     for (let i = 0; i < list.length; i++) {
         //Converts/Parse JSON string into an object
         game = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        divList.innerHTML += '<li>' + game.date + " - " + game.name + '<input type="radio" name="rbtGame" value="' + game.date + '">' + '</li>'
+        divList.innerHTML += '<li>' + game.date + " - " + game.name + ' <input type="radio" name="rbtGame" value="' + game.date + '">' + '</li>'
     }
     divList.innerHTML += '</ul>'
 }
@@ -248,6 +262,7 @@ var addPegsEventHandlers = function (pegs) {
 
 //Initialize the game
 var init = function () {
+    //localStorage.clear()
     var boardElement = document.getElementById('board')
     boardElement.innerHTML = generateBoard()
     var pegs = boardElement.getElementsByClassName('ballPlace')

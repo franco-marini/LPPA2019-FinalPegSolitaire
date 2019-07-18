@@ -19,9 +19,47 @@ body{
     display: flex;
     position: fixed;
     flex-direction: column;
-    width: 150px;
+    width: 290px;
     background-color: #82a5be;
+    padding: 5px;
+    margin: 10px 0 0 10px;
 }
+
+#verticalMenu h1{
+    font-size: 12pt;
+    font-weight: bolder;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+#verticalMenu input[type=text]{
+    width: 180px;
+    border: none;
+    margin: 2px;
+}
+
+#verticalMenu button{
+    background-color: #a7c1d4; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    width: 90px;
+    margin: 5px 5px 5px 0;
+}
+
+#verticalMenu #saveGame{
+    margin: 0 0 0 7px;
+}
+
+#verticalMenu ul #listGames li {
+    margin: 4px;
+}
+
 
 header{
     display: flex;
