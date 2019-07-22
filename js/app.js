@@ -8,7 +8,6 @@ var board = [
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined]
 ]
 
-
 var startGame = function(){
     var boardElement = document.getElementById('board')
     boardElement.innerHTML = generateBoard()
@@ -17,7 +16,7 @@ var startGame = function(){
     var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
     addHolesEventHandlers(holes)
 }
-
+//#region Save Game functions
 //Returns the date and hour of today
 function getDate() {
     var date = new Date()
@@ -50,22 +49,18 @@ function getDate() {
 
 function compare(a, b) {
     //Order by descend the saved games by date
-    return new Date(b.date) - new Date(a.date);
+    return new Date(b.date) - new Date(a.date)
 }
 
 function loadGames() {
     var storedGames = []
-    if (storedGames == null) {
-        storedGames = []
+    //Get all the items of localStorage, then save in a new variable the items parsing from JSON format
+    for (var i = 0; i < localStorage.length; i++) {
+        game = localStorage.getItem(localStorage.key(i))
+        //Converts/Parse JSON string into an object
+        storedGames.push(JSON.parse(game))
     }
-    else {
-        //Get all the items of localStorage, then save in a new variable the items parsing from JSON format
-        for (var i = 0; i < localStorage.length; i++) {
-            game = localStorage.getItem(localStorage.key(i))
-            //Converts/Parse JSON string into an object
-            storedGames.push(JSON.parse(game))
-        }
-    }
+    //Sort by date all the saved games
     storedGames.sort(compare)
     return storedGames
 }
@@ -87,9 +82,10 @@ function findGame() {
     //Get all the elements with the name rbtGame (radio button)
     var rates = document.getElementsByName('rbtGame')
     var rateValue
-    //Checks which radio button is select
+    //Checks which radio button is selected
     for (var i = 0; i < rates.length; i++) {
         if (rates[i].checked) {
+            //Save the value of the radiobutton seleced
             rateValue = rates[i].value
         }
     }
@@ -116,6 +112,7 @@ function deleteGame() {
 
 function saveGame() {
     var nameTxt = document.getElementById('nameTxt').value
+    //Asign the board to an object called newGame
     var newGame = {
         date: getDate(),
         name: nameTxt,
@@ -130,7 +127,7 @@ function saveGame() {
 var resetGame = function () {
     location.reload()
 }
-
+//#endregion
 //#region Functional of the game
 var selectedPeg = { x: undefined, y: undefined }
 var suggestions = []
@@ -140,15 +137,19 @@ var createId = function (rowN, colN) {
     return 'peg-' + rowN + '-' + colN
 }
 
-//Get the position od the peg from an id
+//Get the position of the peg from an id
 var getPositionFromId = function (id) {
+    //Checks if the id is not null and if id has length, if is true split the string
     var idParts = id && id.length ? id.split('-') : []
+    //Checks if the array has 3 elements
     if (idParts.length === 3) {
+        //Returns the value x and y
         return {
             x: parseInt(idParts[1]),
             y: parseInt(idParts[2])
         }
     }
+    //if not, returns nothing
     return {}
 }
 
@@ -260,14 +261,17 @@ var selectPeg = function (evt) {
         else {
             //Solution for suggestions for a previos selected peg 
             unselectPeg()
+            //Asign the values of the selected peg
             selectedPeg.x = parseInt(idParts[1])
             selectedPeg.y = parseInt(idParts[2])
+            //Change the class of the selected peg
             peg.className = 'ballSelected'
             showSuggestions()
         }
     }
 }
 
+//Asign to all the pegs the function --> selectPeg
 var addPegsEventHandlers = function (pegs) {
     for (let i = 0; i < pegs.length; i++) {
         pegs[i].onclick = selectPeg
@@ -275,6 +279,7 @@ var addPegsEventHandlers = function (pegs) {
 }
 
 var movePeg = function (evt) {
+    //Gets the peg clicked
     var id = evt.target.id
     var pos = getPositionFromId(id)
     if (pos.x !== undefined && pos.y !== undefined) {
@@ -296,13 +301,13 @@ var movePeg = function (evt) {
     }
 }
 
+//Asign to all the holes the function --> movePeg
 var addHolesEventHandlers = function (holes) {
     for (let i = 0; i < holes.length; i++) {
         holes[i].onclick = movePeg
     }
 }
 //#endregion
-
 
 //Initialize the game
 var init = function () {
