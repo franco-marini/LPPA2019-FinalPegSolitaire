@@ -155,6 +155,7 @@ var getPositionFromId = function (id) {
 //Generate all de the cells in one row
 var generateCell = function (cell, rowN, colN) {
     //Id is the location of the peg
+    //Depend of the value, set the class 
     var html = '<button id="' + createId(rowN, colN) + '" class="'
     if (cell && cell.value) {
         html += 'ballPlace'
@@ -190,6 +191,7 @@ var generateBoard = function () {
 }
 
 var unselectPeg = function () {
+    //Checks if there is a selected peg
     if (selectedPeg.x !== undefined && selectedPeg.y !== undefined) {
         var prevSelectedId = createId(selectedPeg.x, selectedPeg.y)
         document.getElementById(prevSelectedId).className = 'ballPlace'
@@ -200,61 +202,64 @@ var unselectPeg = function () {
     }
 }
 
+//Returns an element by the id
 var getElement = function (id) {
     var element = document.getElementById(id)
     return element || {}
 }
 
 var showSuggestions = function () {
+    //Get the elements which are near the selected peg
     var near = {
         above: getElement(createId(selectedPeg.x - 1, selectedPeg.y)),
         left: getElement(createId(selectedPeg.x, selectedPeg.y - 1)),
         right: getElement(createId(selectedPeg.x, selectedPeg.y + 1)),
         below: getElement(createId(selectedPeg.x + 1, selectedPeg.y))
     }
-
+    //Get the elements which are possible moves of the selected peg
     var possible = {
         above: getElement(createId(selectedPeg.x - 2, selectedPeg.y)),
         left: getElement(createId(selectedPeg.x, selectedPeg.y - 2)),
         right: getElement(createId(selectedPeg.x, selectedPeg.y + 2)),
         below: getElement(createId(selectedPeg.x + 2, selectedPeg.y))
     }
-
+    //Changes the class of buttons which are possible move in all axis
     if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
         possible.above.className = 'ballPlaceAvailable'
         suggestions.push(possible.above.id)
     }
-
     if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
         possible.left.className = 'ballPlaceAvailable'
         suggestions.push(possible.left.id)
     }
-
     if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
         possible.right.className = 'ballPlaceAvailable'
         suggestions.push(possible.right.id)
     }
-
     if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
         possible.below.className = 'ballPlaceAvailable'
         suggestions.push(possible.below.id)
     }
-    console.log(suggestions)
 }
 
 var selectPeg = function (evt) {
     //Clean the suggestions
     suggestions = []
+    //Gets the peg
     var peg = evt.target
+    //Convert the id (x, y) into int numbers
     var idParts = peg.id && peg.id.length ? peg.id.split('-') : []
     if (idParts.length === 3) {
         unselectPeg()
+        //Checks if the new selected peg is the same
         if (selectedPeg.x === parseInt(idParts[1]) && selectedPeg.y === parseInt(idParts[2])) {
             unselectPeg()
             selectedPeg.x = undefined
             selectedPeg.y = undefined
         }
         else {
+            //Solution for suggestions for a previos selected peg 
+            unselectPeg()
             selectedPeg.x = parseInt(idParts[1])
             selectedPeg.y = parseInt(idParts[2])
             peg.className = 'ballSelected'
