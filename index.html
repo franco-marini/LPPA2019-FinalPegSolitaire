@@ -13,20 +13,16 @@
 
 <body>
     <div id="content">
-            <div id="verticalMenu">
+            <div id="verticalMenu">                    
+                <form>
                 <h1>Juegos Guardados</h1>
-                    <ul>
-                       <li>
-                           <input type="text" name="Nombre" placeholder="Nombre" id="nameTxt">
-                           <button id="saveGame">Guardar</button>
-                        </li>
-                        <div id="listGames"></div>
-                        <li>
-                            <button id="loadGame">Cargar</button>
-                            <button id="deleteGame">Eliminar</button>
-                            <button id="resetGame">Reiniciar</button>
-                        </li>
-                    </ul>
+                    <input type="text" id="nameTxt" placeholder="Nombre">
+                    <input type="button" value="Guardar" id="saveGame">
+                    <div id="listGames"></div>
+                    <input type="button" value="Cargar" id="loadGame">
+                    <input type="button" value="Eliminar" id="deleteGame">
+                    <input type="button" value="Reiniciar" id="resetGame">
+                </form>
                 </div>
         <header>
             <div class="headerTitle">

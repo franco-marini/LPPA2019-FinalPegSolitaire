@@ -22,7 +22,7 @@ body{
     width: 290px;
     background-color: #82a5be;
     padding: 5px;
-    margin: 10px 0 0 10px;
+    margin: 10px 0 10px 10px;
 }
 
 #verticalMenu h1{
@@ -33,33 +33,29 @@ body{
 }
 
 #verticalMenu input[type=text]{
+    font-size: 14px;
+    border: none;
     width: 180px;
-    border: none;
-    margin: 2px;
-}
-
-#verticalMenu button{
-    background-color: #a7c1d4; /* Green */
-    border: none;
-    color: white;
-    padding: 5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: bold;
-    width: 90px;
-    margin: 5px 5px 5px 0;
-}
-
-#verticalMenu #saveGame{
-    margin: 0 0 0 7px;
-}
-
-#verticalMenu ul #listGames li {
+    height: 18px;
     margin: 4px;
 }
 
+#verticalMenu form input[type="button"]{
+    background-color: #a7c1d4;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    width: 80px;
+    height: 20px;
+    margin: 6px;
+}
+
+.savedGame {
+    font-size: 11pt;
+    margin: 4px;
+    list-style-type: none;
+}
 
 header{
     display: flex;
