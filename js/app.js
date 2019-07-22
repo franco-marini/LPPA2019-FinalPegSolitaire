@@ -47,6 +47,29 @@ function getDate() {
     return currentDay + "T" + hours + ":" + minutes + ":" + seconds
 }
 
+function saveGame() {
+    var nameTxt = document.getElementById('nameTxt').value
+    //Asign the board to an object called newGame
+    //Checks the length of the name for save the game
+    if(nameTxt.length < 3 ){
+        alert('Debes escribir por lo menos 3 caracteres')
+        return;
+    }
+    if(nameTxt.length > 13 ){
+        alert('Debes escribir hasta 13 caracteres')
+        return;
+    }
+    var newGame = {
+        date: getDate(),
+        name: nameTxt,
+        actualGame: board
+    }
+    document.getElementById('nameTxt').value = ''
+    //Save the game with de date value as the primary key
+    localStorage.setItem(getDate().toString(), JSON.stringify(newGame))
+    drawGamesTable()
+}
+
 function compare(a, b) {
     //Order by descend the saved games by date
     return new Date(b.date) - new Date(a.date)
@@ -71,7 +94,7 @@ function drawGamesTable() {
     //Draw with HTML structure a list of the saved games
     divList.innerHTML = '<ul>'
     for (let i = 0; i < list.length; i++) {
-        divList.innerHTML += '<li>' + list[i].date + " - " + list[i].name + ' <input type="radio" name="rbtGame" value="' + list[i].date + '">' + '</li>'
+        divList.innerHTML += '<li class="savedGame">' + list[i].date + " - " + list[i].name + ' <input type="radio" name="rbtGame" value="' + list[i].date + '">' + '</li>'
     }
     divList.innerHTML += '</ul>'
 }
@@ -107,20 +130,6 @@ function loadGame() {
 
 function deleteGame() {
     localStorage.removeItem(findGame().date)
-    drawGamesTable()
-}
-
-function saveGame() {
-    var nameTxt = document.getElementById('nameTxt').value
-    //Asign the board to an object called newGame
-    var newGame = {
-        date: getDate(),
-        name: nameTxt,
-        actualGame: board
-    }
-    document.getElementById('nameTxt').value = ''
-    //Save the game with de date value as the primary key
-    localStorage.setItem(getDate().toString(), JSON.stringify(newGame))
     drawGamesTable()
 }
 
@@ -191,6 +200,7 @@ var generateBoard = function () {
     return html
 }
 
+//Changes the class when unselect a peg
 var unselectPeg = function () {
     //Checks if there is a selected peg
     if (selectedPeg.x !== undefined && selectedPeg.y !== undefined) {
@@ -251,6 +261,7 @@ var selectPeg = function (evt) {
     //Convert the id (x, y) into int numbers
     var idParts = peg.id && peg.id.length ? peg.id.split('-') : []
     if (idParts.length === 3) {
+        //Restores the classes
         unselectPeg()
         //Checks if the new selected peg is the same
         if (selectedPeg.x === parseInt(idParts[1]) && selectedPeg.y === parseInt(idParts[2])) {
@@ -315,6 +326,7 @@ var init = function () {
     startGame()
     drawGamesTable()
     var btnSaveGame = document.getElementById('saveGame')
+    console.log(btnSaveGame)
     btnSaveGame.onclick = saveGame
     var btnLoadGame = document.getElementById('loadGame')
     btnLoadGame.onclick = loadGame
