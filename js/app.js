@@ -8,14 +8,8 @@ var board = [
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined]
 ]
 
-var startGame = function(){
-    var boardElement = document.getElementById('board')
-    boardElement.innerHTML = generateBoard()
-    var pegs = boardElement.getElementsByClassName('ballPlace')
-    addPegsEventHandlers(pegs)
-    var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
-    addHolesEventHandlers(holes)
-}
+var totalScore = 0
+
 //#region Save Game functions
 //Returns the date and hour of today
 function getDate() {
@@ -62,10 +56,11 @@ function saveGame() {
     var newGame = {
         date: getDate(),
         name: nameTxt,
+        score: totalScore,
         actualGame: board
     }
     document.getElementById('nameTxt').value = ''
-    //Save the game with de date value as the primary key
+    //Save the game with de date value as the primary key and parse the object to JSON format
     localStorage.setItem(getDate().toString(), JSON.stringify(newGame))
     drawGamesTable()
 }
@@ -125,6 +120,7 @@ function findGame() {
 
 function loadGame() {
     board = findGame().actualGame
+    totalScore = findGame().score
     startGame()
 }
 
@@ -137,6 +133,12 @@ var resetGame = function () {
     location.reload()
 }
 //#endregion
+
+var showScore = function(){
+    var html = '<div><h2>Puntaje: '+ totalScore +' </h2></div>'
+    return html
+}
+
 //#region Functional of the game
 var selectedPeg = { x: undefined, y: undefined }
 var suggestions = []
@@ -192,7 +194,7 @@ var generateRow = function (row, rowN) {
 
 //Generate all the rows for the game
 var generateBoard = function () {
-    var html = '<div class="row">'
+    var html = showScore() + '<div class="board">'
     for (row = 0; row < board.length; row++) {
         html += generateRow(board[row], row)
     }
@@ -307,6 +309,8 @@ var movePeg = function (evt) {
             board[newRow][newCol] = { value: 1 }
             selectedPeg = { x: undefined, y: undefined }
             suggestions = []
+            //Increase the score
+            totalScore += 10
             init()
         }
     }
@@ -320,13 +324,21 @@ var addHolesEventHandlers = function (holes) {
 }
 //#endregion
 
+var startGame = function(){
+    var boardElement = document.getElementById('board')
+    boardElement.innerHTML = generateBoard()
+    var pegs = boardElement.getElementsByClassName('ballPlace')
+    addPegsEventHandlers(pegs)
+    var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
+    addHolesEventHandlers(holes)
+}
+
 //Initialize the game
 var init = function () {
     //localStorage.clear()
     startGame()
     drawGamesTable()
     var btnSaveGame = document.getElementById('saveGame')
-    console.log(btnSaveGame)
     btnSaveGame.onclick = saveGame
     var btnLoadGame = document.getElementById('loadGame')
     btnLoadGame.onclick = loadGame
