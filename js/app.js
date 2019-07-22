@@ -135,7 +135,7 @@ var resetGame = function () {
 //#endregion
 
 var showScore = function(){
-    var html = '<div><h2>Puntaje: '+ totalScore +' </h2></div>'
+    var html = '<div id="score"><h2>Puntaje: '+ totalScore +' </h2></div>'
     return html
 }
 
