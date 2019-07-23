@@ -45,11 +45,11 @@ function saveGame() {
     var nameTxt = document.getElementById('nameTxt').value
     //Asign the board to an object called newGame
     //Checks the length of the name for save the game
-    if(nameTxt.length < 3 ){
+    if (nameTxt.length < 3) {
         alert('Debes escribir por lo menos 3 caracteres')
         return;
     }
-    if(nameTxt.length > 13 ){
+    if (nameTxt.length > 13) {
         alert('Debes escribir hasta 13 caracteres')
         return;
     }
@@ -134,8 +134,8 @@ var resetGame = function () {
 }
 //#endregion
 
-var showScore = function(){
-    var html = '<div id="score"><h2>Puntaje: '+ totalScore +' </h2></div>'
+var showScore = function () {
+    var html = '<div id="score"><h2>Puntaje: ' + totalScore + ' </h2></div>'
     return html
 }
 
@@ -194,11 +194,14 @@ var generateRow = function (row, rowN) {
 
 //Generate all the rows for the game
 var generateBoard = function () {
+    //Show the score on the top of the board
     var html = showScore() + '<div class="board">'
     for (row = 0; row < board.length; row++) {
         html += generateRow(board[row], row)
     }
     html += '</div>'
+    //Create a button to show the vertical menu
+    html += '<button id="openNav">Guardar juego</button> '
     return html
 }
 
@@ -324,13 +327,26 @@ var addHolesEventHandlers = function (holes) {
 }
 //#endregion
 
-var startGame = function(){
+var startGame = function () {
     var boardElement = document.getElementById('board')
     boardElement.innerHTML = generateBoard()
     var pegs = boardElement.getElementsByClassName('ballPlace')
     addPegsEventHandlers(pegs)
     var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
     addHolesEventHandlers(holes)
+}
+
+//Show the save menu
+//Change the style of the vertical menu
+function openNav() {
+    document.getElementById("verticalMenu").style.width = "290px";
+    document.getElementById("content").style.marginLeft = "290px";
+}
+//Hide the save menu
+//Change the style of the vertical menu
+function closeNav() {
+    document.getElementById("verticalMenu").style.width = "0";
+    document.getElementById("content").style.marginLeft = "0";
 }
 
 //Initialize the game
@@ -346,6 +362,10 @@ var init = function () {
     btnDeleteGame.onclick = deleteGame
     var btnResetGame = document.getElementById('resetGame')
     btnResetGame.onclick = resetGame
+    var btnOpenNav = document.getElementById('openNav')
+    btnOpenNav.onclick = openNav
+    var btnCloseNav = document.getElementById('closeNav')
+    btnCloseNav.onclick = closeNav
 }
 
 window.onload = init
