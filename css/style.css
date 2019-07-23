@@ -7,6 +7,16 @@ body{
     min-width: 350px;
 }
 
+#score h2, .headerTitle, .footerTitle{
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.headerDescription, .footerDescription{
+    text-align: center;
+    font-size: 12px;
+}
+
 #content{
     font-family: Arial, Helvetica, sans-serif;
     color: 	#144e77;
@@ -16,32 +26,46 @@ body{
 }
 
 #verticalMenu{
+    position: fixed; /*Stay in place*/
     display: flex;
-    position: fixed;
     flex-direction: column;
-    width: 290px;
+    height: 100%;
+    width: 0px; 
+    z-index: 1;
+    top: 10px;
+    left: 10px;    
     background-color: #82a5be;
-    padding: 5px;
-    margin: 10px 0 10px 10px;
+    overflow-x: hidden;
+    transition: 0.5s;
+    font-size: 14px;
 }
 
+#verticalMenu #closeNav {
+    position: absolute;
+    top: 7px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    text-decoration: none;
+    color: #fff;
+  }
+
 #verticalMenu h1{
-    font-size: 14px;
     font-weight: bolder;
     text-align: center;
     margin: 20px 0 10px;
 }
 
 #verticalMenu input[type=text]{
-    font-size: 14px;
     border: none;
     width: 180px;
     height: 18px;
     margin: 4px;
+    padding-left: 3px;
 }
 
-#verticalMenu form input[type="button"]{
-    background-color: #a7c1d4;
+#verticalMenu form input[type="button"], #openNav{
+    background-color: #778996;
     color: white;
     font-size: 12px;
     font-weight: bold;
@@ -49,6 +73,12 @@ body{
     width: 80px;
     height: 20px;
     margin: 6px;
+    border-radius: none;
+    border: 2px solid #40546d; 
+}
+
+#verticalMenu form input[type="button"]:hover, #openNav:hover{
+    background-color: #8fa9bb;
 }
 
 .savedGame {
@@ -69,8 +99,6 @@ header{
 .headerTitle{
     display: flex;
     align-items: center;
-    font-size: 15px;
-    font-weight: bolder;
 }
 
 .headerImage{
@@ -81,8 +109,6 @@ header{
 
 .headerDescription{
     padding: 20px;
-    text-align: center;
-    font-size: 12px;
 }
 
 #board{
@@ -94,9 +120,8 @@ header{
     padding: 10px;
 }
 
-#score h2{
-    font-weight: bold;
-    font-size: 15px;
+#score{
+    margin: 5px;
 }
 
 #board button {
@@ -106,21 +131,23 @@ header{
     margin: 8px;
 }
 
-.ballPlace{
-    background-color: #105ebb;
-    border: 2px solid #013d78;
+.ballPlace, .ballSelected{
     box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
 }
 
-.ballPlace:hover{
-    background-color: #82a5be;
-    border: 2px solid #d7e6f1;
+.ballPlace{
+    background-color: #105ebb;
+    border: 2px solid #013d78;
 }
 
 .ballSelected{
     background-color: #d7e6f1;
     border: 2px solid #82a5be;
-    box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
+}
+
+.ballPlace:hover{
+    background-color: #82a5be;
+    border: 2px solid #d7e6f1;
 }
 
 .ballPlaceEmpty{
@@ -142,6 +169,14 @@ header{
     visibility: hidden;
 }
 
+#board #openNav{
+    width: 150px;
+    height: 25px;
+    margin: 8px;
+    border-radius: none;
+    border: 2px solid #40546d; 
+}
+
 footer{
     text-align: center;
     background-color: 	#a7c1d4 ;
@@ -149,16 +184,8 @@ footer{
     padding-top: 15px;
 }
 
-.footerTitle{
-    align-items: center;
-    font-size: 15px;
-    font-weight: bolder;
-}
-
 .footerDescription{
     padding: 10px 10px 8px 10px;
-    text-align: center;
-    font-size: 10px;
 }
 
 footer .footerDescription p {
@@ -166,6 +193,11 @@ footer .footerDescription p {
 }
 
 @media (min-width: 500px){
+    .headerImage{
+        width: 25px;
+        height: 25px;
+    }
+
     .headerTitle, .footerTitle, #score h2{
         font-size: 15px;
     }
@@ -182,6 +214,11 @@ footer .footerDescription p {
 }
 
 @media (min-width: 1000px){
+    .headerImage{
+        width: 35px;
+        height: 35px;
+    }
+
     .headerTitle, .footerTitle,#score h2{
         font-size: 18px;
     }
@@ -198,17 +235,16 @@ footer .footerDescription p {
 }
 
 @media (min-width: 1200px){
+    .headerImage{
+        width: 45px;
+        height: 45px;
+    }
+
     .headerTitle, .footerTitle,#score h2{
-        font-size: 22px;
+        font-size: 20px;
     }
     
     .headerDescription, .footerDescription{
-        font-size: 16px;
-    }
-
-    #board button{
-        width: 45px;
-        height: 45px;
-        border-radius: 45px;
+        font-size: 14px;
     }
 }
