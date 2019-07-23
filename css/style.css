@@ -170,11 +170,12 @@ header{
 }
 
 #board #openNav{
-    width: 150px;
+    width: 90px;
     height: 25px;
     margin: 8px;
     border-radius: none;
-    border: 2px solid #40546d; 
+    border: 2px solid #40546d;
+    font-size: 8px; 
 }
 
 footer{
@@ -211,6 +212,13 @@ footer .footerDescription p {
         height: 30px;
         border-radius: 30px;
     }
+
+    #board #openNav{
+        width: 90px;
+        height: 25px;
+        margin: 6px;
+        font-size: 9px;
+    }
 }
 
 @media (min-width: 1000px){
@@ -232,6 +240,13 @@ footer .footerDescription p {
         height: 40px;
         border-radius: 40px;
     }
+
+    #board #openNav{
+        width: 120px;
+        height: 25px;
+        margin: 7px;
+        font-size: 10px;
+    }
 }
 
 @media (min-width: 1200px){
@@ -246,5 +261,12 @@ footer .footerDescription p {
     
     .headerDescription, .footerDescription{
         font-size: 14px;
+    }
+
+    #board #openNav{
+        width: 150px;
+        height: 25px;
+        margin: 8px;
+        font-size: 12px;
     }
 }
