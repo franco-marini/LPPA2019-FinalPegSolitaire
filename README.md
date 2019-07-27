@@ -1,5 +1,15 @@
-# Final Peg Solitaire
-This is my final proyect for "Programming languages for administration" at UAI.
+# Peg Solitaire
+This is my final proyect for the subject "Programming languages for administration" at UAI.
 <br> **Professor**: [David Curras](https://github.com/davidcurras)
-## Play it
-Give it a test to the app hosted on [Github Pages](https://franco-marini.github.io/LPPA2019-FinalPegSolitaire/#)
+## Play
+Give it a test to the game hosted on [Github Pages](https://franco-marini.github.io/LPPA2019-FinalPegSolitaire/#)
+## To do List
+- [x] ~~Data structure~~
+- [x] ~~Show data on the board~~
+- [x] ~~Select the peg~~
+- [x] ~~Possible moves~~
+- [x] ~~Move the peg~~
+- [X] ~~Save and load old games~~
+- [ ]  Win or loose the game
+- [ ]  Show list of the best scores
+- [ ]  Make contact page
