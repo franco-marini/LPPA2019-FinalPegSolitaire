@@ -8,6 +8,9 @@ var board = [
     [undefined, undefined, { value: 1 }, { value: 1 }, { value: 1 }, undefined, undefined]
 ]
 
+var selectedPeg = { x: undefined, y: undefined }
+var suggestions = []
+var vallSuggestions = []
 var totalScore = 0
 
 //#region Save Game functions
@@ -140,8 +143,6 @@ var showScore = function () {
 }
 
 //#region Functional of the game
-var selectedPeg = { x: undefined, y: undefined }
-var suggestions = []
 
 //Creates an id for a peg
 var createId = function (rowN, colN) {
@@ -224,21 +225,33 @@ var getElement = function (id) {
     return element || {}
 }
 
+//Returns from position the near peg
+var getNearPeg = function(x, y){
+    var near = {
+        above: getElement(createId(x - 1, y)),
+        left: getElement(createId(x, y - 1)),
+        right: getElement(createId(x, y + 1)),
+        below: getElement(createId(x + 1, y))
+    }
+    return near 
+}
+
+//Returns from position the possible peg
+var getPossiblePeg = function(x, y){
+    var possible = {
+        above: getElement(createId(x - 2, y)),
+        left: getElement(createId(x, y - 2)),
+        right: getElement(createId(x, y + 2)),
+        below: getElement(createId(x + 2, y))
+    }
+    return possible 
+}
+
 var showSuggestions = function () {
     //Get the elements which are near the selected peg
-    var near = {
-        above: getElement(createId(selectedPeg.x - 1, selectedPeg.y)),
-        left: getElement(createId(selectedPeg.x, selectedPeg.y - 1)),
-        right: getElement(createId(selectedPeg.x, selectedPeg.y + 1)),
-        below: getElement(createId(selectedPeg.x + 1, selectedPeg.y))
-    }
+    var near = getNearPeg(selectedPeg.x, selectedPeg.y)
     //Get the elements which are possible moves of the selected peg
-    var possible = {
-        above: getElement(createId(selectedPeg.x - 2, selectedPeg.y)),
-        left: getElement(createId(selectedPeg.x, selectedPeg.y - 2)),
-        right: getElement(createId(selectedPeg.x, selectedPeg.y + 2)),
-        below: getElement(createId(selectedPeg.x + 2, selectedPeg.y))
-    }
+    var possible = getPossiblePeg(selectedPeg.x, selectedPeg.y)
     //Changes the class of buttons which are possible move in all axis
     if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
         possible.above.className = 'ballPlaceAvailable'
@@ -258,18 +271,52 @@ var showSuggestions = function () {
     }
 }
 
+var checkPlayerLoose = function () {
+    //Get all the elements with the class ballPlace
+    var pegs = document.getElementsByClassName('ballPlace')
+    allSuggestions = []
+    for (i = 0; i < pegs.length; i++) {
+        var pos = getPositionFromId(pegs[i].id)
+        if (pos.x !== undefined && pos.y !== undefined) {
+            //Get the elements which are near the selected peg
+            var near = getNearPeg(pos.x, pos.y)
+            //Get the elements which are possible moves of the selected peg
+            var possible = getPossiblePeg(pos.x, pos.y)
+            //Changes the class of buttons which are possible move in all axis
+            if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.above.id)
+            }
+            if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.left.id)
+            }
+            if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.right.id)
+            }
+            if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.below.id)
+            }
+        }
+    }
+    if(allSuggestions.length === 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 var selectPeg = function (evt) {
     //Clean the suggestions
     suggestions = []
     //Gets the peg
     var peg = evt.target
     //Convert the id (x, y) into int numbers
-    var idParts = peg.id && peg.id.length ? peg.id.split('-') : []
-    if (idParts.length === 3) {
+    var pos = getPositionFromId(peg.id)
+    if (pos.x !== undefined && pos.y !== undefined) {
         //Restores the classes
         unselectPeg()
         //Checks if the new selected peg is the same
-        if (selectedPeg.x === parseInt(idParts[1]) && selectedPeg.y === parseInt(idParts[2])) {
+        if (selectedPeg.x === pos.x && selectedPeg.y === pos.y) {
             unselectPeg()
             selectedPeg.x = undefined
             selectedPeg.y = undefined
@@ -278,8 +325,8 @@ var selectPeg = function (evt) {
             //Solution for suggestions for a previos selected peg 
             unselectPeg()
             //Asign the values of the selected peg
-            selectedPeg.x = parseInt(idParts[1])
-            selectedPeg.y = parseInt(idParts[2])
+            selectedPeg.x = pos.x
+            selectedPeg.y = pos.y
             //Change the class of the selected peg
             peg.className = 'ballSelected'
             showSuggestions()
@@ -310,11 +357,22 @@ var movePeg = function (evt) {
             board[oldRow][oldCol] = { value: 0 }
             board[midRow][midCol] = { value: 0 }
             board[newRow][newCol] = { value: 1 }
+            //Reset the values of the selected peg
             selectedPeg = { x: undefined, y: undefined }
+            //Clean the suggestions
             suggestions = []
             //Increase the score
             totalScore += 10
             init()
+        }
+        if(checkPlayerLoose()){
+            var pegs = document.getElementsByClassName('ballPlace')
+            if(pegs.length === 1){
+                alert('GANASTE')
+            }
+            else{
+                alert('PERDISTE')
+            }
         }
     }
 }
@@ -339,14 +397,14 @@ var startGame = function () {
 //Show the save menu
 //Change the style of the vertical menu
 function openNav() {
-    document.getElementById("verticalMenu").style.width = "290px";
-    document.getElementById("content").style.marginLeft = "290px";
+    document.getElementById("verticalMenu").style.width = "290px"
+    document.getElementById("content").style.marginLeft = "290px"
 }
 //Hide the save menu
 //Change the style of the vertical menu
 function closeNav() {
-    document.getElementById("verticalMenu").style.width = "0";
-    document.getElementById("content").style.marginLeft = "0";
+    document.getElementById("verticalMenu").style.width = "0"
+    document.getElementById("content").style.marginLeft = "0"
 }
 
 //Initialize the game
