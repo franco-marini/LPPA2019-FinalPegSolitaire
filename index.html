@@ -14,7 +14,7 @@
 <body>
     <div id="content">
             <div id="verticalMenu">
-                <a href="#" id="closeNav">&times;</a>                    
+                <a href="#" id="closeNav">&#10006;</a>                    
                 <form>
                 <h1>Juegos Guardados</h1>
                     <input type="text" id="nameTxt" placeholder="Nombre">
@@ -46,13 +46,20 @@
         </footer>
         <div class="overlay">
             <div class="popup">
-                <a href="#">X</a>
+                <a href="#" class="btnClosePopup">&#10006;</a>
                 <h3>MEJORES PUNTAJES</h3>
+                <div id="bestScores">
+                    <ul>
+                        <li>
+                            <h4>210 - Franco</h4>
+                        </li>
+                    </ul>
+                </div>
                 <form action="">
                     <div class="containerInputs">
                         <input type="text" placeholder="Nombre">
                     </div>
-                    <input type="submit" value="Guardar">
+                    <input type="submit" value="Guardar" class="btnSaveScore">
                 </form>
             </div>
         </div>
