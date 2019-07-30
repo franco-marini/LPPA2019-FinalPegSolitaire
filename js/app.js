@@ -311,8 +311,8 @@ var selectPeg = function (evt) {
     //Gets the peg
     var peg = evt.target
     //Convert the id (x, y) into int numbers
-    var pos = getPositionFromId(peg.id)
-    if (pos.x !== undefined && pos.y !== undefined) {
+        var pos = getPositionFromId(peg.id)
+        if (pos.x !== undefined && pos.y !== undefined) {
         //Restores the classes
         unselectPeg()
         //Checks if the new selected peg is the same
@@ -397,14 +397,24 @@ var startGame = function () {
 //Show the save menu
 //Change the style of the vertical menu
 function openNav() {
-    document.getElementById("verticalMenu").style.width = "290px"
-    document.getElementById("content").style.marginLeft = "290px"
+    document.getElementById("verticalMenu").classList.add('width')
+    document.getElementById("content").classList.add('marginLeft')
 }
 //Hide the save menu
 //Change the style of the vertical menu
 function closeNav() {
-    document.getElementById("verticalMenu").style.width = "0"
-    document.getElementById("content").style.marginLeft = "0"
+    document.getElementById("verticalMenu").classList.remove('width')
+    document.getElementById("content").classList.remove('marginLeft')
+}
+
+function closePopup(){
+    overlay = document.getElementsByClassName('overlay')
+    overlay[0].classList.remove('active')
+}
+
+function openPopup(){
+    overlay = document.getElementsByClassName('overlay')
+    overlay[0].classList.add('active')
 }
 
 //Initialize the game
@@ -424,6 +434,8 @@ var init = function () {
     btnOpenNav.onclick = openNav
     var btnCloseNav = document.getElementById('closeNav')
     btnCloseNav.onclick = closeNav
+    var btnClosePopup = document.getElementsByClassName('btnClosePopup')
+    btnClosePopup[0].onclick = closePopup
 }
 
 window.onload = init
