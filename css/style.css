@@ -249,8 +249,14 @@ footer .footerDescription p {
     color: #000;
 }
 
-.popup h3{
+.popup h2{
     font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.popup h3{
+    font-size: 17px;
     font-weight: 600;
     margin-bottom: 10px;
 }
