@@ -202,7 +202,7 @@ var generateBoard = function () {
     }
     html += '</div>'
     //Create a button to show the vertical menu
-    html += '<button id="openNav">Guardar juego</button> '
+    html += '<button id="openNav">Guardar</button> ' + '<button id="resetGame">Reiniciar</button>'
     return html
 }
 
@@ -226,25 +226,25 @@ var getElement = function (id) {
 }
 
 //Returns from position the near peg
-var getNearPeg = function(x, y){
+var getNearPeg = function (x, y) {
     var near = {
         above: getElement(createId(x - 1, y)),
         left: getElement(createId(x, y - 1)),
         right: getElement(createId(x, y + 1)),
         below: getElement(createId(x + 1, y))
     }
-    return near 
+    return near
 }
 
 //Returns from position the possible peg
-var getPossiblePeg = function(x, y){
+var getPossiblePeg = function (x, y) {
     var possible = {
         above: getElement(createId(x - 2, y)),
         left: getElement(createId(x, y - 2)),
         right: getElement(createId(x, y + 2)),
         below: getElement(createId(x + 2, y))
     }
-    return possible 
+    return possible
 }
 
 var showSuggestions = function () {
@@ -297,10 +297,10 @@ var checkPlayerLoose = function () {
             }
         }
     }
-    if(allSuggestions.length === 0){
+    if (allSuggestions.length === 0) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }
@@ -311,8 +311,8 @@ var selectPeg = function (evt) {
     //Gets the peg
     var peg = evt.target
     //Convert the id (x, y) into int numbers
-        var pos = getPositionFromId(peg.id)
-        if (pos.x !== undefined && pos.y !== undefined) {
+    var pos = getPositionFromId(peg.id)
+    if (pos.x !== undefined && pos.y !== undefined) {
         //Restores the classes
         unselectPeg()
         //Checks if the new selected peg is the same
@@ -365,13 +365,13 @@ var movePeg = function (evt) {
             totalScore += 10
             init()
         }
-        if(checkPlayerLoose()){
+        if (checkPlayerLoose()) {
             var pegs = document.getElementsByClassName('ballPlace')
-            if(pegs.length === 1){
-                alert('GANASTE')
+            if (pegs.length === 1) {
+                openPopup('Ganaste')
             }
-            else{
-                alert('PERDISTE')
+            else {
+                openPopup('Perdiste')
             }
         }
     }
@@ -407,14 +407,28 @@ function closeNav() {
     document.getElementById("content").classList.remove('marginLeft')
 }
 
-function closePopup(){
-    overlay = document.getElementsByClassName('overlay')
-    overlay[0].classList.remove('active')
+function closePopup() {
+    overlay = document.getElementsByClassName('overlay')[0]
+    overlay.classList.remove('active')
+    overlay.getElementsByTagName('form')[0].classList.add('inactive')
 }
 
-function openPopup(){
-    overlay = document.getElementsByClassName('overlay')
-    overlay[0].classList.add('active')
+function openPopup(message) {
+    closeNav()
+    overlay = document.getElementsByClassName('overlay')[0]
+    overlay.classList.add('active')
+    overlay.getElementsByTagName('form')[0].classList.remove('inactive')
+    var divMessage = document.getElementById('message')
+    divMessage.innerHTML = '<h4>' + message + '</h4>'
+}
+
+function openPopupBtn() {
+    closeNav()
+    overlay = document.getElementsByClassName('overlay')[0]
+    overlay.classList.add('active')
+    overlay.getElementsByTagName('form')[0].classList.add('inactive')
+    var divMessage = document.getElementById('message')
+    divMessage.innerText = ''
 }
 
 //Initialize the game
@@ -434,6 +448,8 @@ var init = function () {
     btnOpenNav.onclick = openNav
     var btnCloseNav = document.getElementById('closeNav')
     btnCloseNav.onclick = closeNav
+    var btnShowScores = document.getElementById('showScores')
+    btnShowScores.onclick = openPopupBtn
     var btnClosePopup = document.getElementsByClassName('btnClosePopup')
     btnClosePopup[0].onclick = closePopup
 }
