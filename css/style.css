@@ -25,6 +25,10 @@ body{
     width: 100%;
 }
 
+#content.marginLeft{
+    margin-left: 290px;
+}
+
 /*-------------Save Menu-------------*/
 #verticalMenu{
     position: fixed; /*Stay in place*/
@@ -41,10 +45,14 @@ body{
     font-size: 14px;
 }
 
+#verticalMenu.width{
+    width: 290px;
+}
+
 #verticalMenu #closeNav {
     display: block; /*Occupy all the space available*/
     text-align: right;
-    font-size: 36px;
+    font-size: 23px;
     margin: 10px;
     text-decoration: none;
     color: #BBBBBB;
