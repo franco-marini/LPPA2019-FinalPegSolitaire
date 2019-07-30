@@ -237,7 +237,7 @@ footer .footerDescription p {
     width: 275px;
 }
 
-.btnClosePopup{
+.closePopup{
     font-size: 16px;
     display: block; /*Occupy all the space available*/
     text-align: right;
@@ -245,7 +245,7 @@ footer .footerDescription p {
     text-decoration: none;
 }
 
-.btnClosePopup:hover{
+.closePopup:hover{
     color: #000;
 }
 
@@ -275,7 +275,7 @@ footer .footerDescription p {
     border: 1px solid #BBBBBB;
 }
 
-.popup form .btnSaveScore{
+.popup form input[type="submit"]{
     padding: 0px 10px;
     border: none;
     height: 30px;
@@ -285,7 +285,7 @@ footer .footerDescription p {
     border-radius: 3px;
 }
 
-.popup form .btnSaveScore:hover{
+.popup form input[type="submit"]:hover{
     background-color: rgba(20, 78, 119, 0.);
 }
 
