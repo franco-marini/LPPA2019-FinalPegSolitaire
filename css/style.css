@@ -122,7 +122,7 @@ header{
 }
 
 .headerDescription{
-    padding: 20px;
+    padding: 10px;
 }
 
 /*-------------Board---------------*/
@@ -205,7 +205,7 @@ footer{
     text-align: center;
     background-color: 	#a7c1d4 ;
     margin: 0 10px 10px 10px;
-    padding-top: 15px;
+    padding-top: 10px;
 }
 
 .footerDescription{
