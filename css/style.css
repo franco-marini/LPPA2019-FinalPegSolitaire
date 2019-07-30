@@ -184,6 +184,13 @@ header{
     visibility: hidden;
 }
 
+#board #control{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px;
+} 
+
 #board .control{
     width: 90px;
     height: 25px;
