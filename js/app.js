@@ -10,8 +10,58 @@ var board = [
 
 var selectedPeg = { x: undefined, y: undefined }
 var suggestions = []
-var vallSuggestions = []
+var allSuggestions = []
 var totalScore = 0
+
+var startGame = function () {
+    var boardElement = document.getElementById('board')
+    boardElement.innerHTML = generateBoard()
+    var pegs = boardElement.getElementsByClassName('ballPlace')
+    addPegsEventHandlers(pegs)
+    var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
+    addHolesEventHandlers(holes)
+}
+
+//Show the save menu
+//Change the style of the vertical menu
+function openNav() {
+    document.getElementById("verticalMenu").classList.add('width')
+    document.getElementById("content").classList.add('marginLeft')
+}
+//Hide the save menu
+//Change the style of the vertical menu
+function closeNav() {
+    document.getElementById("verticalMenu").classList.remove('width')
+    document.getElementById("content").classList.remove('marginLeft')
+}
+
+function closePopup() {
+    overlay = document.getElementsByClassName('overlay')[0]
+    overlay.classList.remove('active')
+    overlay.getElementsByTagName('form')[0].classList.add('inactive')
+}
+
+function showPopupMessage(message){
+    var divMessage = document.getElementById('message')
+    divMessage.innerHTML = '<h2>' + message + '</h2>'
+}
+
+function openPopup(message) {
+    closeNav()
+    overlay = document.getElementsByClassName('overlay')[0]
+    overlay.classList.add('active')
+    overlay.getElementsByTagName('form')[0].classList.remove('inactive')
+    showPopupMessage(message)
+}
+
+function openPopupBtn() {
+    closeNav()
+    overlay = document.getElementsByClassName('overlay')[0]
+    overlay.classList.add('active')
+    overlay.getElementsByTagName('form')[0].classList.add('inactive')
+    var divMessage = document.getElementById('message')
+    divMessage.innerText = ''
+}
 
 //#region Save Game functions
 //Returns the date and hour of today
@@ -66,6 +116,7 @@ function saveGame() {
     //Save the game with de date value as the primary key and parse the object to JSON format
     localStorage.setItem(getDate().toString(), JSON.stringify(newGame))
     drawGamesTable()
+    closeNav()
 }
 
 function compare(a, b) {
@@ -125,6 +176,7 @@ function loadGame() {
     board = findGame().actualGame
     totalScore = findGame().score
     startGame()
+    closeNav()
 }
 
 function deleteGame() {
@@ -368,10 +420,10 @@ var movePeg = function (evt) {
         if (checkPlayerLoose()) {
             var pegs = document.getElementsByClassName('ballPlace')
             if (pegs.length === 1) {
-                openPopup('Ganaste')
+                openPopup('&#127881;&#10024;GANASTE&#10024;&#127881;')
             }
             else {
-                openPopup('Perdiste')
+                openPopup('Estuviste cerca ')
             }
         }
     }
@@ -384,52 +436,6 @@ var addHolesEventHandlers = function (holes) {
     }
 }
 //#endregion
-
-var startGame = function () {
-    var boardElement = document.getElementById('board')
-    boardElement.innerHTML = generateBoard()
-    var pegs = boardElement.getElementsByClassName('ballPlace')
-    addPegsEventHandlers(pegs)
-    var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
-    addHolesEventHandlers(holes)
-}
-
-//Show the save menu
-//Change the style of the vertical menu
-function openNav() {
-    document.getElementById("verticalMenu").classList.add('width')
-    document.getElementById("content").classList.add('marginLeft')
-}
-//Hide the save menu
-//Change the style of the vertical menu
-function closeNav() {
-    document.getElementById("verticalMenu").classList.remove('width')
-    document.getElementById("content").classList.remove('marginLeft')
-}
-
-function closePopup() {
-    overlay = document.getElementsByClassName('overlay')[0]
-    overlay.classList.remove('active')
-    overlay.getElementsByTagName('form')[0].classList.add('inactive')
-}
-
-function openPopup(message) {
-    closeNav()
-    overlay = document.getElementsByClassName('overlay')[0]
-    overlay.classList.add('active')
-    overlay.getElementsByTagName('form')[0].classList.remove('inactive')
-    var divMessage = document.getElementById('message')
-    divMessage.innerHTML = '<h4>' + message + '</h4>'
-}
-
-function openPopupBtn() {
-    closeNav()
-    overlay = document.getElementsByClassName('overlay')[0]
-    overlay.classList.add('active')
-    overlay.getElementsByTagName('form')[0].classList.add('inactive')
-    var divMessage = document.getElementById('message')
-    divMessage.innerText = ''
-}
 
 //Initialize the game
 var init = function () {
@@ -450,8 +456,10 @@ var init = function () {
     btnCloseNav.onclick = closeNav
     var btnShowScores = document.getElementById('showScores')
     btnShowScores.onclick = openPopupBtn
-    var btnClosePopup = document.getElementsByClassName('btnClosePopup')
+    var btnClosePopup = document.getElementsByClassName('closePopup')
     btnClosePopup[0].onclick = closePopup
+    var btnResetGamePopup = document.getElementsByClassName('resetGame')
+    btnResetGamePopup[0].onclick = resetGame
 }
 
 window.onload = init
