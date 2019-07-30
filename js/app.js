@@ -42,7 +42,7 @@ function closePopup() {
     overlay.getElementsByTagName('form')[0].classList.add('inactive')
 }
 
-function showPopupMessage(message){
+function showPopupMessage(message) {
     var divMessage = document.getElementById('message')
     divMessage.innerHTML = '<h2>' + message + '</h2>'
 }
@@ -69,7 +69,7 @@ function openPopupBtn() {
 
 //#region Save Game functions
 //Returns the date and hour of today
-function getDate() {
+function getDate(type) {
     var date = new Date()
     var yyyy = date.getFullYear()
     var dd = date.getDate()
@@ -95,7 +95,7 @@ function getDate() {
     if (seconds < 10) {
         seconds = "0" + seconds
     }
-    return currentDay + "T" + hours + ":" + minutes + ":" + seconds
+    return type + "/" + currentDay + "T" + hours + ":" + minutes + ":" + seconds
 }
 
 function saveGame() {
@@ -111,20 +111,20 @@ function saveGame() {
         return;
     }
     var newGame = {
-        date: getDate(),
+        date: getDate('G'),
         name: nameTxt,
         score: totalScore,
         actualGame: board
     }
     document.getElementById('nameTxt').value = ''
     //Save the game with de date value as the primary key and parse the object to JSON format
-    localStorage.setItem(getDate().toString(), JSON.stringify(newGame))
+    localStorage.setItem(newGame.date, JSON.stringify(newGame))
     drawGamesTable()
     closeNav()
 }
 
 function compare(a, b) {
-    //Order by descend the saved games by date
+    //Order by newer the saved games by date
     return new Date(b.date) - new Date(a.date)
 }
 
@@ -134,7 +134,13 @@ function loadGames() {
     for (var i = 0; i < localStorage.length; i++) {
         game = localStorage.getItem(localStorage.key(i))
         //Converts/Parse JSON string into an object
-        storedGames.push(JSON.parse(game))
+        game = JSON.parse(game)
+        typeSave = game.date.split('/')
+        //Checks if the type is game or score
+        if (typeSave[0] === 'G') {
+            game.date = typeSave[1]
+            storedGames.push(game)
+        }
     }
     //Sort by date all the saved games
     storedGames.sort(compare)
@@ -249,7 +255,7 @@ var generateRow = function (row, rowN) {
     return html
 }
 
-var generateControlButtons = function() {
+var generateControlButtons = function () {
     var html = '<div id="control">'
     html += '<button class="control" id="openNav">Guardar</button>'
     html += '<button class="control" id="resetGame">Reiniciar</button>'
@@ -265,7 +271,7 @@ var generateBoard = function () {
         html += generateRow(board[row], row)
     }
     html += '</div>'
-    //Create a button to show the vertical menu
+    //Create the buttons to control the reset or the vertical menu
     html += generateControlButtons()
     return html
 }
