@@ -77,7 +77,7 @@ body{
     padding-left: 3px;
 }
 
-#verticalMenu form input[type="button"], #openNav{
+#verticalMenu form input[type="button"], .control{
     background-color: #778996;
     color: white;
     font-size: 12px;
@@ -90,7 +90,7 @@ body{
     border: 2px solid #40546d; 
 }
 
-#verticalMenu form input[type="button"]:hover, #openNav:hover{
+#verticalMenu form input[type="button"]:hover, .control:hover{
     background-color: #8fa9bb;
 }
 
@@ -184,7 +184,7 @@ header{
     visibility: hidden;
 }
 
-#board #openNav{
+#board .control{
     width: 90px;
     height: 25px;
     margin: 8px;
@@ -315,7 +315,7 @@ footer .footerDescription p {
         border-radius: 30px;
     }
 
-    #board #openNav{
+    #board .control{
         width: 90px;
         height: 25px;
         margin: 6px;
@@ -343,7 +343,7 @@ footer .footerDescription p {
         border-radius: 40px;
     }
 
-    #board #openNav{
+    #board .control{
         width: 120px;
         height: 25px;
         margin: 7px;
@@ -365,7 +365,7 @@ footer .footerDescription p {
         font-size: 14px;
     }
 
-    #board #openNav{
+    #board .control{
         width: 150px;
         height: 25px;
         margin: 8px;

@@ -258,7 +258,7 @@ var generateBoard = function () {
     }
     html += '</div>'
     //Create a button to show the vertical menu
-    html += '<button id="openNav">Guardar</button> ' + '<button id="resetGame">Reiniciar</button>'
+    html += '<button class="control" id="openNav">Guardar</button> ' + '<button class="control" id="resetGame">Reiniciar</button>'
     return html
 }
 
