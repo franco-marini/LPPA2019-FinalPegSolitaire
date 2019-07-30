@@ -36,6 +36,7 @@ function closeNav() {
 }
 
 function closePopup() {
+    //Change by class the overlay to hidden
     overlay = document.getElementsByClassName('overlay')[0]
     overlay.classList.remove('active')
     overlay.getElementsByTagName('form')[0].classList.add('inactive')
@@ -47,17 +48,20 @@ function showPopupMessage(message){
 }
 
 function openPopup(message) {
-    closeNav()
+    //Change by class the overlay to visible
     overlay = document.getElementsByClassName('overlay')[0]
     overlay.classList.add('active')
+    //Show the form to save the score on the high scores
     overlay.getElementsByTagName('form')[0].classList.remove('inactive')
     showPopupMessage(message)
 }
 
 function openPopupBtn() {
     closeNav()
+    //Change by class the overlay to visible
     overlay = document.getElementsByClassName('overlay')[0]
     overlay.classList.add('active')
+    //Only show the High scores, it dosent show the form to save the score
     overlay.getElementsByTagName('form')[0].classList.add('inactive')
     var divMessage = document.getElementById('message')
     divMessage.innerText = ''
@@ -323,40 +327,6 @@ var showSuggestions = function () {
     }
 }
 
-var checkPlayerLoose = function () {
-    //Get all the elements with the class ballPlace
-    var pegs = document.getElementsByClassName('ballPlace')
-    allSuggestions = []
-    for (i = 0; i < pegs.length; i++) {
-        var pos = getPositionFromId(pegs[i].id)
-        if (pos.x !== undefined && pos.y !== undefined) {
-            //Get the elements which are near the selected peg
-            var near = getNearPeg(pos.x, pos.y)
-            //Get the elements which are possible moves of the selected peg
-            var possible = getPossiblePeg(pos.x, pos.y)
-            //Changes the class of buttons which are possible move in all axis
-            if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
-                allSuggestions.push(possible.above.id)
-            }
-            if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
-                allSuggestions.push(possible.left.id)
-            }
-            if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
-                allSuggestions.push(possible.right.id)
-            }
-            if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
-                allSuggestions.push(possible.below.id)
-            }
-        }
-    }
-    if (allSuggestions.length === 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
 var selectPeg = function (evt) {
     //Clean the suggestions
     suggestions = []
@@ -393,6 +363,40 @@ var addPegsEventHandlers = function (pegs) {
     }
 }
 
+var checkPlayerLoose = function () {
+    //Get all the elements with the class ballPlace
+    var pegs = document.getElementsByClassName('ballPlace')
+    allSuggestions = []
+    for (i = 0; i < pegs.length; i++) {
+        var pos = getPositionFromId(pegs[i].id)
+        if (pos.x !== undefined && pos.y !== undefined) {
+            //Get the elements which are near the selected peg
+            var near = getNearPeg(pos.x, pos.y)
+            //Get the elements which are possible moves of the selected peg
+            var possible = getPossiblePeg(pos.x, pos.y)
+            //Changes the class of buttons which are possible move in all axis
+            if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.above.id)
+            }
+            if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.left.id)
+            }
+            if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.right.id)
+            }
+            if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
+                allSuggestions.push(possible.below.id)
+            }
+        }
+    }
+    if (allSuggestions.length === 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 var movePeg = function (evt) {
     //Gets the peg clicked
     var id = evt.target.id
@@ -423,7 +427,7 @@ var movePeg = function (evt) {
                 openPopup('&#127881;&#10024;GANASTE&#10024;&#127881;')
             }
             else {
-                openPopup('Estuviste cerca ')
+                openPopup('Estuviste cerca')
             }
         }
     }
