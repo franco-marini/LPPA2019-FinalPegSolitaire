@@ -249,6 +249,14 @@ var generateRow = function (row, rowN) {
     return html
 }
 
+var generateControlButtons = function() {
+    var html = '<div id="control">'
+    html += '<button class="control" id="openNav">Guardar</button>'
+    html += '<button class="control" id="resetGame">Reiniciar</button>'
+    html += '</div>'
+    return html
+}
+
 //Generate all the rows for the game
 var generateBoard = function () {
     //Show the score on the top of the board
@@ -258,7 +266,7 @@ var generateBoard = function () {
     }
     html += '</div>'
     //Create a button to show the vertical menu
-    html += '<button class="control" id="openNav">Guardar</button> ' + '<button class="control" id="resetGame">Reiniciar</button>'
+    html += generateControlButtons()
     return html
 }
 
