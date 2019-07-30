@@ -261,6 +261,14 @@ footer .footerDescription p {
     margin-bottom: 10px;
 }
 
+.popup form{
+    visibility: visible;
+}
+
+.popup form.inactive{
+    visibility: hidden;
+}
+
 .popup form .containerInputs input{
     width: 100%;
     margin-bottom: 15px;
