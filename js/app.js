@@ -12,6 +12,7 @@ var suggestions = []
 var allSuggestions = []
 var totalScore = 0
 var savedGames = []
+var savedScores = []
 
 var startGame = function() {
     var boardElement = document.getElementById('board')
@@ -99,9 +100,50 @@ var getDate = function() {
     return currentDay + 'T' + hours + ':' + minutes + ':' + seconds
 }
 
+var saveScore = function() {
+    var nameTxt = document.getElementById('nameScore').value
+    //Validations
+    if(nameTxt.length > 3) {
+        alert('Debes escribir por lo menos 3 caracteres')
+        return
+    }
+    if(nameTxt.length > 6) {
+        alert('Maximo 6 caracteres')
+        return
+    }
+    //Create a new object
+    var newScore = {
+        date: getDate(),
+        name: nameTxt,
+        score: totalScore
+    }
+    //Clean the textbox
+    document.getElementById('nameScore').value = ''
+    //Save the score if is better than the others
+    for(let i = 0; i < saveScores.length; i++) {
+        if(savedScores[i].score < newScore.score) {
+            savedScores[i] = newScore
+        }
+        else if(saveScores[i].score === newScore.score) {
+            savedScores.push(newScore)
+        }
+        else {
+            alert('No superaste ningun puntaje')
+            closePopup()
+        } 
+    }
+    //Slice the array to top 10
+    if(savedScores.length > 11) {
+        savedScores.slice(0,9)
+    }
+    localStorage.setItem('savedScores', JSON.stringify(savedScores))
+    closePopup()
+    resetGame()
+    console.log(savedScores)
+}
+
 var saveGame = function() {
     var nameTxt = document.getElementById('nameTxt').value
-    //Asign the board to an object called newGame
     //Checks the length of the name for save the game
     if(nameTxt.length < 3) {
         alert('Debes escribir por lo menos 3 caracteres')
@@ -111,6 +153,7 @@ var saveGame = function() {
         alert('Debes escribir hasta 13 caracteres')
         return
     }
+    //Asign the board to an object called newGame
     var newGame = {
         date: getDate(),
         name: nameTxt,
