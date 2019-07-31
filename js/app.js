@@ -135,6 +135,7 @@ var saveScore = function() {
             //If is the same score, it add at the end
             if(savedScores[i].score === newScore.score) {
                 savedScores.push(newScore)
+                //Order by date and score
                 savedScores.sort(compareDateScore)
             }
             //Save the score if is better than the others
@@ -151,18 +152,31 @@ var saveScore = function() {
     if(savedScores.length > 11) {
         savedScores.slice(0,9)
     }
+    //Save the scores on localstorage parsing the array to JSON format
     localStorage.setItem('savedScores', JSON.stringify(savedScores))
     closePopup()
-    //resetGame()
+    resetGame()
 }
 
 var loadScores = function() {
+    //Get the array from localstorage and parse the from JSON format
     savedScores = JSON.parse(localStorage.getItem('savedScores'))
     if(savedScores === null) {
         savedScores = []
     }
-    savedScores.sort(compareDateScore)
+    //Order by date and score
     console.log(savedScores)
+}
+
+var generateScoreTable = function() {
+    var divList = document.getElementById('bestScores')
+    divList.innerHTML = '<ul>'
+    for (let i = 0; i < savedScores.length; i++) {
+        divList.innerHTML += '<li><h4>'
+        divList.innerHTML += savedScores[i].date + ' - ' + savedScores[i].name + ' - ' + savedScores[i].score 
+        divList.innerHTML += '</h4></li>'
+    }
+    divList.innerHTML += '</ul>'
 }
 
 var saveGame = function() {
@@ -184,10 +198,10 @@ var saveGame = function() {
         board: board
     }
     document.getElementById('nameTxt').value = ''
-    //Save the game with de date value as the primary key and parse the object to JSON format
+    //Save the games on localstorage parsing the array to JSON format
     savedGames.push(newGame)
     localStorage.setItem('savedGames', JSON.stringify(savedGames))
-    drawGamesTable()
+    generateGamesTable()
     closeNav()
 }
 
@@ -197,7 +211,7 @@ var compareDate = function(a, b) {
 }
 
 var loadGames = function() {
-    //Get all the items of localStorage, then save in a new variable the items parsing from JSON format
+    //Get the array from localstorage and parse the from JSON format
     savedGames = JSON.parse(localStorage.getItem('savedGames'))
     if(savedGames === null) {
         //Fix the problem with the array when is null
@@ -207,12 +221,15 @@ var loadGames = function() {
     savedGames.sort(compareDate)
 }
 
-var drawGamesTable = function() {
+var generateGamesTable = function() {
     var divList = document.getElementById('listGames')
-    //Draw with HTML structure a list of the saved games
+    //generate with HTML structure a list of the saved games
     divList.innerHTML = '<ul>'
     for(let i = 0; i < savedGames.length; i++) {
-        divList.innerHTML += '<li class="savedGame">' + savedGames[i].date + ' - ' + savedGames[i].name + ' <input type="radio" name="rbtGame" value="' + savedGames[i].date + '">' + '</li>'
+        divList.innerHTML += '<li class="savedGame">' 
+        divList.innerHTML += savedGames[i].date + ' - ' + savedGames[i].name 
+        divList.innerHTML += ' <input type="radio" name="rbtGame" value="' + savedGames[i].date + '">'
+        divList.innerHTML += '</li>'
     }
     divList.innerHTML += '</ul>'
 }
@@ -253,7 +270,7 @@ var deleteGame = function() {
         }
     }
     localStorage.setItem('savedGames', JSON.stringify(savedGames))
-    drawGamesTable()
+    generateGamesTable()
 }
 
 var resetGame = function() {
@@ -520,9 +537,10 @@ var addHolesEventHandlers = function(holes) {
 var init = function() {
     //localStorage.clear()
     loadGames()
+    generateGamesTable()
     loadScores()
+    generateScoreTable()
     startGame()
-    drawGamesTable()
     //Save game buttons
     document.getElementById('closeNav').onclick = closeNav
     document.getElementById('saveGame').onclick = saveGame
