@@ -1,197 +1,192 @@
-body{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+body {
     background-color: #82a5be;
     min-width: 350px;
 }
 
-#score h2, .headerTitle, .footerTitle{
+#content {
+    position: relative;
+    display:  flex;
+    flex-direction: column;
+    width: 100%;
+    color: 	#144e77;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#content.marginLeft {
+    margin-left: 290px;
+}
+
+#score h2, .headerTitle, .footerTitle {
     font-weight: bolder;
     font-size: 15px;
 }
 
-.headerDescription, .footerDescription{
+.headerDescription, .footerDescription {
     text-align: center;
     font-size: 12px;
 }
 
-#content{
-    font-family: Arial, Helvetica, sans-serif;
-    color: 	#144e77;
-    display:  flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-#content.marginLeft{
-    margin-left: 290px;
-}
-
 /*-------------Save Menu-------------*/
-#verticalMenu{
+#verticalMenu {
     position: fixed; /*Stay in place*/
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 0px; 
-    z-index: 1;
     top: 10px;
     left: 10px;    
     background-color: #82a5be;
-    overflow-x: hidden;
-    transition: 0.5s;
+    overflow-x: hidden; /*Hidden the elements when the menu disapears*/
+    transition: 0.5s;   /*Create the effect to slow down*/
     font-size: 14px;
 }
 
-#verticalMenu.width{
+#verticalMenu.width {
     width: 290px;
 }
 
 #verticalMenu #closeNav {
     display: block; /*Occupy all the space available*/
+    margin: 10px;
+    color: #BBBBBB;
     text-align: right;
     font-size: 23px;
-    margin: 10px;
     text-decoration: none;
-    color: #BBBBBB;
-    transition: .3s ease all; /*Wait a little to do the hover*/
+    transition: .3s; /*Wait a little to do the hover*/
 }
 
-#verticalMenu #closeNav:hover{
+#verticalMenu #closeNav:hover {
     color: #000;
 }
 
-#verticalMenu h1{
+#verticalMenu h1 {
+    margin: 0 0 10px;
     font-weight: bolder;
     text-align: center;
-    margin: 0 0 10px;
 }
 
-#verticalMenu input[type=text]{
-    border: none;
+#verticalMenu input[type=text] {
     width: 180px;
     height: 18px;
     margin: 4px;
     padding-left: 3px;
+    border: none;
 }
 
-#verticalMenu form input[type="button"], .control{
-    background-color: #778996;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    border: none;
+#verticalMenu form input[type="button"], .control {
     width: 80px;
     height: 20px;
     margin: 6px;
+    background-color: #778996;
+    border: none;
     border-radius: none;
-    border: 2px solid #40546d; 
+    border: 2px solid #40546d;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-#verticalMenu form input[type="button"]:hover, .control:hover{
+#verticalMenu form input[type="button"]:hover, .control:hover {
     background-color: #8fa9bb;
 }
 
 .savedGame {
-    font-size: 15px;
     margin: 4px;
+    font-size: 15px;
     list-style-type: none;
 }
 
 /*-------------Header---------------*/
-header{
+header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: 	#a7c1d4 ;
     padding-top: 15px;
     margin: 10px 10px 0 10px;
+    background-color: 	#a7c1d4 ;
 }
 
-.headerTitle{
+.headerTitle {
     display: flex;
     align-items: center;
 }
 
-.headerImage{
+.headerImage {
     width: 50px;
     height: 50px;
     padding-right: 10px;
 }
 
-.headerDescription{
+.headerDescription {
     padding: 10px;
 }
 
 /*-------------Board---------------*/
-#board{
+#board {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color:	#d7e6f1;
     margin: 10px 10px 10px 10px;
     padding: 10px;
+    background-color:	#d7e6f1;
 }
 
-#score{
+#score {
     margin: 5px;
 }
 
 #board button {
     width: 20px;
     height: 20px;
-    border-radius: 20px;
     margin: 8px;
+    border-radius: 20px;
 }
 
-.ballPlace, .ballSelected{
+.ballPlace, .ballSelected {
     box-shadow: 2px 0px 3px 1px rgba(0, 0, 0, 0.65) 
 }
 
-.ballPlace{
+.ballPlace {
     background-color: #105ebb;
     border: 2px solid #013d78;
 }
 
-.ballSelected{
+.ballSelected {
     background-color: #d7e6f1;
     border: 2px solid #82a5be;
 }
 
-.ballPlace:hover{
+.ballPlace:hover {
     background-color: #82a5be;
     border: 2px solid #d7e6f1;
 }
 
-.ballPlaceEmpty{
+.ballPlaceEmpty {
     background-color: #fff;
     border: #82a5be solid 2px;
 }
 
-.ballPlaceEmpty:hover{
+.ballPlaceEmpty:hover {
     /*Dosent apear the hand on the cursor*/
     cursor: default;
 }
 
-.ballPlaceAvailable{
+.ballPlaceAvailable {
     background-color: #aadab4;
     border: #82be87 solid 2px;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
 }
 
-#board #control{
+#board #control {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 5px;
 } 
 
-#board .control{
+#board .control {
     width: 90px;
     height: 25px;
     margin: 8px;
@@ -201,14 +196,14 @@ header{
 }
 
 /*-------------Footer--------------*/
-footer{
-    text-align: center;
-    background-color: 	#a7c1d4 ;
+footer {
     margin: 0 10px 10px 10px;
     padding-top: 10px;
+    background-color: #a7c1d4;
+    text-align: center;
 }
 
-.footerDescription{
+.footerDescription {
     padding: 10px 10px 8px 10px;
 }
 
@@ -217,122 +212,122 @@ footer .footerDescription p {
 }
 
 /*-------------Popup---------------*/
-.overlay{
+.overlay {
+    position: fixed; /*All the page*/
     display: flex;
     align-items: center; /*Aling on the cross axis*/
     justify-content: center; /*Aling on the main axis*/
-    background-color: rgba(0, 0, 0, 0.50); /*Black transparent*/
-    position: fixed; /*All the page*/
     /*Ocuppy all the page*/
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    background-color: rgba(0, 0, 0, 0.50); /*Black transparent*/
     visibility: hidden;
 }
 
-.overlay.active{
+.overlay.active {
     visibility: visible;
 }
 
-.popup{
+.popup {
+    width: 300px;
+    padding: 15px;
     background-color: #f8f8f8f8;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.65); /*Simulate a shadow*/
     border-radius: 3px;
-    padding: 15px;
     text-align: center;
-    width: 300px;
 }
 
-.closePopup{
-    font-size: 16px;
+.closePopup {
     display: block; /*Occupy all the space available*/
     text-align: right;
+    font-size: 16px;
     color: #BBBBBB;
     text-decoration: none;
 }
 
-.closePopup:hover{
+.closePopup:hover {
     color: #000;
 }
 
-.popup h2{
+.popup h2 {
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 10px;
 }
 
-.popup #bestScores{
-    margin-bottom: 10px;
+.popup #bestScores {
     text-align: justify;
 }
 
 .popup #bestScores .savedScore {
-    list-style-type: decimal;
     margin-bottom: 5px;
+    list-style-type: decimal;
 }
 
-.popup h3{
+.popup h3 {
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 10px;
 }
 
-.popup h4{
+.popup h4 {
     font-size: 13px;
     font-weight: 300;
+}
+
+.popup h2, .popup #bestScores, .popup h3, .popup h4 {
     margin-bottom: 10px;
 }
 
-.popup form{
+.popup form {
     visibility: visible;
 }
 
-.popup form.inactive{
+.popup form.inactive {
     visibility: hidden;
 }
 
-.popup form .containerInputs input{
+.popup form .containerInputs input {
     width: 100%;
     margin-bottom: 15px;
     border: 1px solid #BBBBBB;
 }
 
-.popup form input[type="submit"]{
-    padding: 0px 10px;
-    border: none;
+.popup form input[type="submit"] {
     height: 30px;
     line-height: 30px;
-    color: #fff;
+    padding: 0px 10px;
+    border: none;
     background-color: #144e77;
     border-radius: 3px;
+    color: #fff;
 }
 
-.popup form input[type="submit"]:hover{
+.popup form input[type="submit"]:hover {
     background-color: rgba(20, 78, 119, 0.);
 }
 
-@media (min-width: 500px){
-    .headerImage{
+@media (min-width: 500px) {
+    .headerImage {
         width: 25px;
         height: 25px;
     }
 
-    .headerTitle, .footerTitle, #score h2{
+    .headerTitle, .footerTitle, #score h2 {
         font-size: 15px;
     }
     
-    .headerDescription, .footerDescription{
+    .headerDescription, .footerDescription {
         font-size: 10px;
     }
 
-    #board button{
+    #board button {
         width: 30px;
         height: 30px;
         border-radius: 30px;
     }
 
-    #board .control{
+    #board .control {
         width: 90px;
         height: 25px;
         margin: 6px;
@@ -340,27 +335,27 @@ footer .footerDescription p {
     }
 }
 
-@media (min-width: 1000px){
-    .headerImage{
+@media (min-width: 1000px) {
+    .headerImage {
         width: 35px;
         height: 35px;
     }
 
-    .headerTitle, .footerTitle,#score h2{
+    .headerTitle, .footerTitle,#score h2 {
         font-size: 18px;
     }
     
-    .headerDescription, .footerDescription{
+    .headerDescription, .footerDescription {
         font-size: 12px;
     }
 
-    #board button{
+    #board button {
         width: 40px;
         height: 40px;
         border-radius: 40px;
     }
 
-    #board .control{
+    #board .control {
         width: 120px;
         height: 25px;
         margin: 7px;
@@ -368,21 +363,21 @@ footer .footerDescription p {
     }
 }
 
-@media (min-width: 1200px){
-    .headerImage{
+@media (min-width: 1200px) {
+    .headerImage {
         width: 45px;
         height: 45px;
     }
 
-    .headerTitle, .footerTitle,#score h2{
+    .headerTitle, .footerTitle,#score h2 {
         font-size: 20px;
     }
     
-    .headerDescription, .footerDescription{
+    .headerDescription, .footerDescription {
         font-size: 14px;
     }
 
-    #board .control{
+    #board .control {
         width: 150px;
         height: 25px;
         margin: 8px;
