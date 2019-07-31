@@ -100,10 +100,14 @@ var getDate = function() {
     return currentDay + 'T' + hours + ':' + minutes + ':' + seconds
 }
 
+var compareDateScore = function(a, b) {
+    return b.score - a.score || new Date(a.date) - new Date(b.date) 
+}
+
 var saveScore = function() {
-    var nameTxt = document.getElementById('nameScore').value
+    var nameTxt = document.getElementById('scoreName').value
     //Validations
-    if(nameTxt.length > 3) {
+    if(nameTxt.length < 3) {
         alert('Debes escribir por lo menos 3 caracteres')
         return
     }
@@ -118,19 +122,30 @@ var saveScore = function() {
         score: totalScore
     }
     //Clean the textbox
-    document.getElementById('nameScore').value = ''
-    //Save the score if is better than the others
-    for(let i = 0; i < saveScores.length; i++) {
-        if(savedScores[i].score < newScore.score) {
-            savedScores[i] = newScore
-        }
-        else if(saveScores[i].score === newScore.score) {
-            savedScores.push(newScore)
-        }
-        else {
-            alert('No superaste ningun puntaje')
-            closePopup()
-        } 
+    document.getElementById('scoreName').value = ''
+    //Save the first 10 best scores
+    if(savedScores.length < 11) {
+        savedScores.push(newScore)
+        //Order by date and score
+        savedScores.sort(compareDateScore)
+    }
+    //if there are already 10 best score
+    else {
+        for(let i = 0; i < savedScores.length; i++) {
+            //If is the same score, it add at the end
+            if(savedScores[i].score === newScore.score) {
+                savedScores.push(newScore)
+                savedScores.sort(compareDateScore)
+            }
+            //Save the score if is better than the others
+            else if(savedScores[i].score < newScore.score) {
+                savedScores[i] = newScore
+            }
+            else {
+                alert('No superaste ningun puntaje')
+                closePopup()
+            } 
+        }   
     }
     //Slice the array to top 10
     if(savedScores.length > 11) {
@@ -138,7 +153,15 @@ var saveScore = function() {
     }
     localStorage.setItem('savedScores', JSON.stringify(savedScores))
     closePopup()
-    resetGame()
+    //resetGame()
+}
+
+var loadScores = function() {
+    savedScores = JSON.parse(localStorage.getItem('savedScores'))
+    if(savedScores === null) {
+        savedScores = []
+    }
+    savedScores.sort(compareDateScore)
     console.log(savedScores)
 }
 
@@ -168,7 +191,7 @@ var saveGame = function() {
     closeNav()
 }
 
-var compare = function(a, b) {
+var compareDate = function(a, b) {
     //Order by newer the saved games by date
     return new Date(b.date) - new Date(a.date)
 }
@@ -181,7 +204,7 @@ var loadGames = function() {
         savedGames = []
     }
     //Sort by date all the saved games
-    savedGames.sort(compare)
+    savedGames.sort(compareDate)
 }
 
 var drawGamesTable = function() {
@@ -497,17 +520,22 @@ var addHolesEventHandlers = function(holes) {
 var init = function() {
     //localStorage.clear()
     loadGames()
+    loadScores()
     startGame()
     drawGamesTable()
+    //Save game buttons
+    document.getElementById('closeNav').onclick = closeNav
     document.getElementById('saveGame').onclick = saveGame
     document.getElementById('loadGame').onclick = loadGame
     document.getElementById('deleteGame').onclick = deleteGame
-    document.getElementById('resetGame').onclick = resetGame
-    document.getElementById('openNav').onclick = openNav
-    document.getElementById('closeNav').onclick = closeNav
     document.getElementById('showScores').onclick = openPopupBtn
-    document.getElementsByClassName('closePopup')[0].onclick = closePopup
-    document.getElementsByClassName('resetGame')[0].onclick = resetGame
+    //Board control buttons
+    document.getElementById('openNav').onclick = openNav
+    document.getElementById('resetGame').onclick = resetGame
+    //Popup buttons
+    document.getElementById('closePopup').onclick = closePopup
+    document.getElementById('saveScore').onclick = saveScore
+    document.getElementById('resetGamePopup').onclick = resetGame
 }
 
 window.onload = init
