@@ -101,12 +101,13 @@ var getDate = function() {
 }
 
 var compareDateScore = function(a, b) {
+    //Order by best score and lastest date
     return b.score - a.score || new Date(b.date) - new Date(a.date) 
 }
 
 var saveScore = function() {
     var nameTxt = document.getElementById('scoreName').value
-    //Validations
+    //Validations - CHECK
     if(nameTxt.length < 3) {
         alert('Debes escribir por lo menos 3 caracteres')
         return
@@ -141,8 +142,6 @@ var loadScores = function() {
     if(savedScores === null) {
         savedScores = []
     }
-    //Order by date and score
-    console.log(savedScores)
 }
 
 var generateScoreTable = function() {
