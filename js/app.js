@@ -13,7 +13,7 @@ var suggestions = []
 var allSuggestions = []
 var totalScore = 0
 
-var startGame = function () {
+var startGame = function() {
     var boardElement = document.getElementById('board')
     boardElement.innerHTML = generateBoard()
     var pegs = boardElement.getElementsByClassName('ballPlace')
@@ -24,30 +24,30 @@ var startGame = function () {
 
 //Show the save menu
 //Change the style of the vertical menu
-function openNav() {
-    document.getElementById("verticalMenu").classList.add('width')
-    document.getElementById("content").classList.add('marginLeft')
+var openNav = function() {
+    document.getElementById('verticalMenu').classList.add('width')
+    document.getElementById('content').classList.add('marginLeft')
 }
 //Hide the save menu
 //Change the style of the vertical menu
-function closeNav() {
-    document.getElementById("verticalMenu").classList.remove('width')
-    document.getElementById("content").classList.remove('marginLeft')
+var closeNav = function() {
+    document.getElementById('verticalMenu').classList.remove('width')
+    document.getElementById('content').classList.remove('marginLeft')
 }
 
-function closePopup() {
+var closePopup = function() {
     //Change by class the overlay to hidden
     overlay = document.getElementsByClassName('overlay')[0]
     overlay.classList.remove('active')
     overlay.getElementsByTagName('form')[0].classList.add('inactive')
 }
 
-function showPopupMessage(message) {
+var showPopupMessage = function(message) {
     var divMessage = document.getElementById('message')
     divMessage.innerHTML = '<h2>' + message + '</h2>'
 }
 
-function openPopup(message) {
+var openPopup = function(message) {
     //Change by class the overlay to visible
     overlay = document.getElementsByClassName('overlay')[0]
     overlay.classList.add('active')
@@ -56,7 +56,7 @@ function openPopup(message) {
     showPopupMessage(message)
 }
 
-function openPopupBtn() {
+var openPopupBtn = function() {
     closeNav()
     //Change by class the overlay to visible
     overlay = document.getElementsByClassName('overlay')[0]
@@ -69,46 +69,46 @@ function openPopupBtn() {
 
 //#region Save Game functions
 //Returns the date and hour of today
-function getDate(type) {
+var getDate = function(type) {
     var date = new Date()
     var yyyy = date.getFullYear()
     var dd = date.getDate()
     var mm = (date.getMonth() + 1)
     //Puts the 0 for the numbers below 2 digits
     if (dd < 10) {
-        dd = "0" + dd
+        dd = '0' + dd
     }
     if (mm < 10) {
-        mm = "0" + mm
+        mm = '0' + mm
     }
-    var currentDay = yyyy + "-" + mm + "-" + dd
+    var currentDay = yyyy + '-' + mm + '-' + dd
     var hours = date.getHours()
     var minutes = date.getMinutes()
     var seconds = date.getSeconds()
     //Puts the 0 for the numbers below 2 digits
     if (hours < 10) {
-        hours = "0" + hours
+        hours = '0' + hours
     }
     if (minutes < 10) {
-        minutes = "0" + minutes
+        minutes = '0' + minutes
     }
     if (seconds < 10) {
-        seconds = "0" + seconds
+        seconds = '0' + seconds
     }
-    return type + "/" + currentDay + "T" + hours + ":" + minutes + ":" + seconds
+    return type + '/' + currentDay + 'T' + hours + ':' + minutes + ':' + seconds
 }
 
-function saveGame() {
+var saveGame = function() {
     var nameTxt = document.getElementById('nameTxt').value
     //Asign the board to an object called newGame
     //Checks the length of the name for save the game
     if (nameTxt.length < 3) {
         alert('Debes escribir por lo menos 3 caracteres')
-        return;
+        return
     }
     if (nameTxt.length > 13) {
         alert('Debes escribir hasta 13 caracteres')
-        return;
+        return
     }
     var newGame = {
         date: getDate('G'),
@@ -123,12 +123,12 @@ function saveGame() {
     closeNav()
 }
 
-function compare(a, b) {
+var compare = function(a, b) {
     //Order by newer the saved games by date
     return new Date(b.date) - new Date(a.date)
 }
 
-function loadGames() {
+var loadGames = function() {
     var storedGames = []
     //Get all the items of localStorage, then save in a new variable the items parsing from JSON format
     for (var i = 0; i < localStorage.length; i++) {
@@ -147,18 +147,18 @@ function loadGames() {
     return storedGames
 }
 
-function drawGamesTable() {
+var drawGamesTable = function() {
     var list = loadGames()
     var divList = document.getElementById('listGames')
     //Draw with HTML structure a list of the saved games
     divList.innerHTML = '<ul>'
     for (let i = 0; i < list.length; i++) {
-        divList.innerHTML += '<li class="savedGame">' + list[i].date + " - " + list[i].name + ' <input type="radio" name="rbtGame" value="' + list[i].date + '">' + '</li>'
+        divList.innerHTML += '<li class="savedGame">' + list[i].date + ' - ' + list[i].name + ' <input type="radio" name="rbtGame" value="' + list[i].date + '">' + '</li>'
     }
     divList.innerHTML += '</ul>'
 }
 
-function findGame() {
+var findGame = function() {
     //Brings all the saved games in localStorage
     var storedGames = loadGames()
     //Get all the elements with the name rbtGame (radio button)
@@ -182,24 +182,24 @@ function findGame() {
     return game
 }
 
-function loadGame() {
+var loadGame = function() {
     board = findGame().actualGame
     totalScore = findGame().score
     startGame()
     closeNav()
 }
 
-function deleteGame() {
+var deleteGame = function() {
     localStorage.removeItem(findGame().date)
     drawGamesTable()
 }
 
-var resetGame = function () {
+var resetGame = function() {
     location.reload()
 }
 //#endregion
 
-var showScore = function () {
+var showScore = function() {
     var html = '<div id="score"><h2>Puntaje: ' + totalScore + ' </h2></div>'
     return html
 }
@@ -207,12 +207,12 @@ var showScore = function () {
 //#region Functional of the game
 
 //Creates an id for a peg
-var createId = function (rowN, colN) {
+var createId = function(rowN, colN) {
     return 'peg-' + rowN + '-' + colN
 }
 
 //Get the position of the peg from an id
-var getPositionFromId = function (id) {
+var getPositionFromId = function(id) {
     //Checks if the id is not null and if id has length, if is true split the string
     var idParts = id && id.length ? id.split('-') : []
     //Checks if the array has 3 elements
@@ -228,7 +228,7 @@ var getPositionFromId = function (id) {
 }
 
 //Generate all de the cells in one row
-var generateCell = function (cell, rowN, colN) {
+var generateCell = function(cell, rowN, colN) {
     //Id is the location of the peg
     //Depend of the value, set the class 
     var html = '<button id="' + createId(rowN, colN) + '" class="'
@@ -246,7 +246,7 @@ var generateCell = function (cell, rowN, colN) {
 }
 
 //Generate the row
-var generateRow = function (row, rowN) {
+var generateRow = function(row, rowN) {
     var html = '<div class="row">'
     for (let column = 0; column < row.length; column++) {
         html += generateCell(row[column], rowN, column)
@@ -255,7 +255,7 @@ var generateRow = function (row, rowN) {
     return html
 }
 
-var generateControlButtons = function () {
+var generateControlButtons = function() {
     var html = '<div id="control">'
     html += '<button class="control" id="openNav">Guardar</button>'
     html += '<button class="control" id="resetGame">Reiniciar</button>'
@@ -264,7 +264,7 @@ var generateControlButtons = function () {
 }
 
 //Generate all the rows for the game
-var generateBoard = function () {
+var generateBoard = function() {
     //Show the score on the top of the board
     var html = showScore() + '<div class="board">'
     for (row = 0; row < board.length; row++) {
@@ -277,7 +277,7 @@ var generateBoard = function () {
 }
 
 //Changes the class when unselect a peg
-var unselectPeg = function () {
+var unselectPeg = function() {
     //Checks if there is a selected peg
     if (selectedPeg.x !== undefined && selectedPeg.y !== undefined) {
         var prevSelectedId = createId(selectedPeg.x, selectedPeg.y)
@@ -290,13 +290,13 @@ var unselectPeg = function () {
 }
 
 //Returns an element by the id
-var getElement = function (id) {
+var getElement = function(id) {
     var element = document.getElementById(id)
     return element || {}
 }
 
 //Returns from position the near peg
-var getNearPeg = function (x, y) {
+var getNearPeg = function(x, y) {
     var near = {
         above: getElement(createId(x - 1, y)),
         left: getElement(createId(x, y - 1)),
@@ -307,7 +307,7 @@ var getNearPeg = function (x, y) {
 }
 
 //Returns from position the possible peg
-var getPossiblePeg = function (x, y) {
+var getPossiblePeg = function(x, y) {
     var possible = {
         above: getElement(createId(x - 2, y)),
         left: getElement(createId(x, y - 2)),
@@ -317,7 +317,7 @@ var getPossiblePeg = function (x, y) {
     return possible
 }
 
-var showSuggestions = function () {
+var showSuggestions = function() {
     //Get the elements which are near the selected peg
     var near = getNearPeg(selectedPeg.x, selectedPeg.y)
     //Get the elements which are possible moves of the selected peg
@@ -341,7 +341,7 @@ var showSuggestions = function () {
     }
 }
 
-var selectPeg = function (evt) {
+var selectPeg = function(evt) {
     //Clean the suggestions
     suggestions = []
     //Gets the peg
@@ -370,14 +370,14 @@ var selectPeg = function (evt) {
     }
 }
 
-//Asign to all the pegs the function --> selectPeg
-var addPegsEventHandlers = function (pegs) {
+//Asign to all the pegs the function--> selectPeg
+var addPegsEventHandlers = function(pegs) {
     for (let i = 0; i < pegs.length; i++) {
         pegs[i].onclick = selectPeg
     }
 }
 
-var checkPlayerLoose = function () {
+var checkPlayerLoose = function() {
     //Get all the elements with the class ballPlace
     var pegs = document.getElementsByClassName('ballPlace')
     allSuggestions = []
@@ -404,14 +404,14 @@ var checkPlayerLoose = function () {
         }
     }
     if (allSuggestions.length === 0) {
-        return true;
+        return true
     }
     else {
-        return false;
+        return false
     }
 }
 
-var movePeg = function (evt) {
+var movePeg = function(evt) {
     //Gets the peg clicked
     var id = evt.target.id
     var pos = getPositionFromId(id)
@@ -438,7 +438,7 @@ var movePeg = function (evt) {
         if (checkPlayerLoose()) {
             var pegs = document.getElementsByClassName('ballPlace')
             if (pegs.length === 1) {
-                openPopup('&#127881;&#10024;GANASTE&#10024;&#127881;')
+                openPopup('&#127881&#10024GANASTE&#10024&#127881')
             }
             else {
                 openPopup('Estuviste cerca')
@@ -447,8 +447,8 @@ var movePeg = function (evt) {
     }
 }
 
-//Asign to all the holes the function --> movePeg
-var addHolesEventHandlers = function (holes) {
+//Asign to all the holes the function--> movePeg
+var addHolesEventHandlers = function(holes) {
     for (let i = 0; i < holes.length; i++) {
         holes[i].onclick = movePeg
     }
@@ -456,7 +456,7 @@ var addHolesEventHandlers = function (holes) {
 //#endregion
 
 //Initialize the game
-var init = function () {
+var init = function() {
     //localStorage.clear()
     startGame()
     drawGamesTable()
