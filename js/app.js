@@ -499,24 +499,15 @@ var init = function() {
     loadGames()
     startGame()
     drawGamesTable()
-    var btnSaveGame = document.getElementById('saveGame')
-    btnSaveGame.onclick = saveGame
-    var btnLoadGame = document.getElementById('loadGame')
-    btnLoadGame.onclick = loadGame
-    var btnDeleteGame = document.getElementById('deleteGame')
-    btnDeleteGame.onclick = deleteGame
-    var btnResetGame = document.getElementById('resetGame')
-    btnResetGame.onclick = resetGame
-    var btnOpenNav = document.getElementById('openNav')
-    btnOpenNav.onclick = openNav
-    var btnCloseNav = document.getElementById('closeNav')
-    btnCloseNav.onclick = closeNav
-    var btnShowScores = document.getElementById('showScores')
-    btnShowScores.onclick = openPopupBtn
-    var btnClosePopup = document.getElementsByClassName('closePopup')
-    btnClosePopup[0].onclick = closePopup
-    var btnResetGamePopup = document.getElementsByClassName('resetGame')
-    btnResetGamePopup[0].onclick = resetGame
+    document.getElementById('saveGame').onclick = saveGame
+    document.getElementById('loadGame').onclick = loadGame
+    document.getElementById('deleteGame').onclick = deleteGame
+    document.getElementById('resetGame').onclick = resetGame
+    document.getElementById('openNav').onclick = openNav
+    document.getElementById('closeNav').onclick = closeNav
+    document.getElementById('showScores').onclick = openPopupBtn
+    document.getElementsByClassName('closePopup')[0].onclick = closePopup
+    document.getElementsByClassName('resetGame')[0].onclick = resetGame
 }
 
 window.onload = init
