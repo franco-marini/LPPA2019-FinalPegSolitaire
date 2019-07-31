@@ -241,7 +241,7 @@ footer .footerDescription p {
     border-radius: 3px;
     padding: 15px;
     text-align: center;
-    width: 275px;
+    width: 300px;
 }
 
 .closePopup{
@@ -260,6 +260,16 @@ footer .footerDescription p {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
+}
+
+.popup #bestScores{
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.popup #bestScores .savedScore {
+    list-style-type: decimal;
+    margin-bottom: 5px;
 }
 
 .popup h3{
