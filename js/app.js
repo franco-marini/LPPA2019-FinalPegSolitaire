@@ -172,9 +172,7 @@ var generateScoreTable = function() {
     var divList = document.getElementById('bestScores')
     divList.innerHTML = '<ul>'
     for (let i = 0; i < savedScores.length; i++) {
-        divList.innerHTML += '<li><h4>'
-        divList.innerHTML += savedScores[i].date + ' - ' + savedScores[i].name + ' - ' + savedScores[i].score 
-        divList.innerHTML += '</h4></li>'
+        divList.innerHTML += '<li class="savedScore">' + savedScores[i].date + ' - ' + savedScores[i].name + ' - ' + savedScores[i].score + '</li>'
     }
     divList.innerHTML += '</ul>'
 }
@@ -226,10 +224,7 @@ var generateGamesTable = function() {
     //generate with HTML structure a list of the saved games
     divList.innerHTML = '<ul>'
     for(let i = 0; i < savedGames.length; i++) {
-        divList.innerHTML += '<li class="savedGame">' 
-        divList.innerHTML += savedGames[i].date + ' - ' + savedGames[i].name 
-        divList.innerHTML += ' <input type="radio" name="rbtGame" value="' + savedGames[i].date + '">'
-        divList.innerHTML += '</li>'
+        divList.innerHTML += '<li class="savedGame">' + savedGames[i].date + ' - ' + savedGames[i].name + ' <input type="radio" name="rbtGame" value="' + savedGames[i].date + '"></li>'
     }
     divList.innerHTML += '</ul>'
 }
