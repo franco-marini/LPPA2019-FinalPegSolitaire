@@ -101,7 +101,7 @@ var getDate = function() {
 }
 
 var compareDateScore = function(a, b) {
-    return b.score - a.score || new Date(a.date) - new Date(b.date) 
+    return b.score - a.score || new Date(b.date) - new Date(a.date) 
 }
 
 var saveScore = function() {
@@ -124,34 +124,11 @@ var saveScore = function() {
     //Clean the textbox
     document.getElementById('scoreName').value = ''
     //Save the first 10 best scores
-    if(savedScores.length < 11) {
-        savedScores.push(newScore)
-        //Order by date and score
-        savedScores.sort(compareDateScore)
-    }
-    //if there are already 10 best score
-    else {
-        for(let i = 0; i < savedScores.length; i++) {
-            //If is the same score, it add at the end
-            if(savedScores[i].score === newScore.score) {
-                savedScores.push(newScore)
-                //Order by date and score
-                savedScores.sort(compareDateScore)
-            }
-            //Save the score if is better than the others
-            else if(savedScores[i].score < newScore.score) {
-                savedScores[i] = newScore
-            }
-            else {
-                alert('No superaste ningun puntaje')
-                closePopup()
-            } 
-        }   
-    }
+    savedScores.push(newScore)
+    //Order by date and score
+    savedScores.sort(compareDateScore)
     //Slice the array to top 10
-    if(savedScores.length > 11) {
-        savedScores.slice(0,9)
-    }
+    savedScores = savedScores.slice(0,10)
     //Save the scores on localstorage parsing the array to JSON format
     localStorage.setItem('savedScores', JSON.stringify(savedScores))
     closePopup()
