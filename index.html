@@ -46,7 +46,7 @@
         </footer>
         <div class="overlay">
             <div class="popup">
-                <a href="#" class="closePopup">&#10006;</a>
+                <a href="#" id="closePopup" class="closePopup">&#10006;</a>
                 <div id="message"></div>
                 <h3>MEJORES PUNTAJES</h3>
                 <div id="bestScores">
@@ -58,10 +58,10 @@
                 </div>
                 <form action="" class="inactive">
                     <div class="containerInputs">
-                        <input type="text" placeholder="Nombre" id="scoreName">
+                        <input type="text" id="scoreName" placeholder="Nombre">
                     </div>
-                    <input type="submit" value="Guardar" class="saveScore">
-                    <input type="submit" value="Reiniciar" class="resetGame">
+                    <input type="submit" value="Guardar" id="saveScore" class="saveScore">
+                    <input type="submit" value="Reiniciar" id="resetGamePopup" class="resetGame">
                 </form>
             </div>
         </div>
