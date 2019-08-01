@@ -265,6 +265,7 @@ footer .footerDescription a {
 
 .popup #bestScores .savedScore {
     margin-bottom: 5px;
+    list-style: inside; /*Apply the padding of the popup*/
     list-style-type: decimal;
 }
 
