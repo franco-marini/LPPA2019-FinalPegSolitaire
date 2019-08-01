@@ -211,6 +211,9 @@ footer .footerDescription p {
     margin: 6px;
 }
 
+footer .footerDescription a {
+    text-decoration: none;
+}
 /*-------------Popup---------------*/
 .overlay {
     position: fixed; /*All the page*/
