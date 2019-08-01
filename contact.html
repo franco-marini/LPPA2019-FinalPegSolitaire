@@ -6,20 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/contact.css">
+    <script src="js/contact.js"></script>
     <title>Peg Solitaire | Franco Marini</title>
 </head>
 <body>
     <div id="content">
         <h1>CONTACTA CON NOSOTROS</h1>
-        <form action="">
-            <label>Nombre:</label>
-            <input type="text" name="name" placeholder="Tu nombre completo" id="name">
-            <label>E-mail:</label>
-            <input type="email" name="email" placeholder="Ej. ejemplo@gmail.com" id="email">
-            <label>Mensaje:</label>
-            <textarea name="message" placeholder="Escribe el mensaje" id="message" cols="30" rows="5"></textarea>
-            <input type="submit" value="Enviar" id="send">
-        </form>
+        <div id="formContent">
+            <form action="">
+                <label>Nombre:</label>
+                <input type="text" name="name" placeholder="Tu nombre completo" id="name">
+                <label>E-mail:</label>
+                <input type="email" name="email" placeholder="Ej. ejemplo@gmail.com" id="email">
+                <label>Mensaje:</label>
+                <textarea name="message" placeholder="Escribe el mensaje" id="message" cols="30" rows="5"></textarea>
+            </form>
+            <button id="send">Enviar</button>
+        </div>
     </div>
 </body>
 </html>
