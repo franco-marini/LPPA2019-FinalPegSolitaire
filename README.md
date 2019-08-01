@@ -13,4 +13,4 @@ Give it a test to the game hosted on [Github Pages](https://franco-marini.github
 - [X] ~~Win or loose the game~~
 - [X] ~~Save the score with a popup~~ 
 - [X] ~~Show list of the best scores~~
-- [ ]  Make contact page
+- [X] ~~Make contact page~~
