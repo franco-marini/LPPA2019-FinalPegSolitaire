@@ -144,13 +144,22 @@ var loadScores = function() {
     }
 }
 
+var generateSavedScore = function(index) {
+    //Generate one save score item 
+    var html = '<li class="savedScore">' 
+    html += savedScores[index].date + ' - ' + savedScores[index].name + ' - ' + savedScores[index].score
+    html += '</li>'
+    return html
+}
+
 var generateScoreTable = function() {
-    var divList = document.getElementById('bestScores')
-    divList.innerHTML = '<ul>'
-    for (let i = 0; i < savedScores.length; i++) {
-        divList.innerHTML += '<li class="savedScore">' + savedScores[i].date + ' - ' + savedScores[i].name + ' - ' + savedScores[i].score + '</li>'
+    //Generate the high score table
+    var html = '<ul>'
+    for(let i = 0; i < savedScores.length; i++) {
+        html += generateSavedScore(i)
     }
-    divList.innerHTML += '</ul>'
+    html += '</ul>'
+    return html
 }
 
 var saveGame = function() {
@@ -510,7 +519,7 @@ var init = function() {
     loadGames()
     generateGamesTable()
     loadScores()
-    generateScoreTable()
+    document.getElementById('bestScores').innerHTML = generateScoreTable()
     startGame()
     //Save game buttons
     document.getElementById('closeNav').onclick = closeNav
