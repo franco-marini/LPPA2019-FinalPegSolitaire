@@ -40,7 +40,7 @@ var sendEmail = function() {
         return
     }
     //Check the email format
-    if (!checkEmail(emailTxt)) {
+    if(!checkEmail(emailTxt)) {
         alert('El email no es valido')
         return
     }   
