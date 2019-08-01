@@ -15,12 +15,17 @@ var savedGames = []
 var savedScores = []
 
 var startGame = function() {
+    //Generate the board, the pegs and holes
     var boardElement = document.getElementById('board')
     boardElement.innerHTML = generateBoard()
+    //Asing the click buttons to buttons
     var pegs = boardElement.getElementsByClassName('ballPlace')
     addPegsEventHandlers(pegs)
     var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
     addHolesEventHandlers(holes)
+    //Board control buttons
+    document.getElementById('openNav').onclick = openNav
+    document.getElementById('resetGame').onclick = resetGame
 }
 
 //Show the save menu
@@ -159,7 +164,7 @@ var generateScoreTable = function() {
         html += generateSavedScore(i)
     }
     html += '</ul>'
-    return html
+    document.getElementById('bestScores').innerHTML = html
 }
 
 var saveGame = function() {
@@ -204,14 +209,23 @@ var loadGames = function() {
     savedGames.sort(compareDate)
 }
 
+var generateSavedGame = function(index) {
+    //Generate one saved game item
+    var html = '<li class="savedGame">'
+    html += savedGames[index].date + ' - ' + savedGames[index].name
+    html += ' <input type="radio" name="rbtGame" value="' + savedGames[index].date + '">'
+    html += '</li>'
+    return html
+}
+
 var generateGamesTable = function() {
-    var divList = document.getElementById('listGames')
-    //generate with HTML structure a list of the saved games
-    divList.innerHTML = '<ul>'
+    //Generate save game table
+    var html = '<ul>'
     for(let i = 0; i < savedGames.length; i++) {
-        divList.innerHTML += '<li class="savedGame">' + savedGames[i].date + ' - ' + savedGames[i].name + ' <input type="radio" name="rbtGame" value="' + savedGames[i].date + '"></li>'
+        html += generateSavedGame(i)
     }
-    divList.innerHTML += '</ul>'
+    html += '</ul>'
+    document.getElementById('listGames').innerHTML = html
 }
 
 var findGame = function() {
@@ -244,11 +258,7 @@ var loadGame = function() {
 }
 
 var deleteGame = function() {
-    for(let i = 0; i < savedGames.length; i++) {
-        if(savedGames[i].date == findGame().date) {
-            savedGames.splice(i, 1)
-        }
-    }
+    savedGames.splice(savedGames.indexOf(findGame()), 1)
     localStorage.setItem('savedGames', JSON.stringify(savedGames))
     generateGamesTable()
 }
@@ -315,7 +325,7 @@ var generateRow = function(row, rowN) {
 
 var generateControlButtons = function() {
     var html = '<div id="control">'
-    html += '<button class="control" id="openNav">Guardar</button>'
+    html += '<button class="control" id="openNav">Menu</button>'
     html += '<button class="control" id="resetGame">Reiniciar</button>'
     html += '</div>'
     return html
@@ -519,7 +529,7 @@ var init = function() {
     loadGames()
     generateGamesTable()
     loadScores()
-    document.getElementById('bestScores').innerHTML = generateScoreTable()
+    generateScoreTable()
     startGame()
     //Save game buttons
     document.getElementById('closeNav').onclick = closeNav
@@ -527,9 +537,6 @@ var init = function() {
     document.getElementById('loadGame').onclick = loadGame
     document.getElementById('deleteGame').onclick = deleteGame
     document.getElementById('showScores').onclick = openPopupBtn
-    //Board control buttons
-    document.getElementById('openNav').onclick = openNav
-    document.getElementById('resetGame').onclick = resetGame
     //Popup buttons
     document.getElementById('closePopup').onclick = closePopup
     document.getElementById('saveScore').onclick = saveScore
