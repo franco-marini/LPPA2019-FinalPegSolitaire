@@ -1,3 +1,62 @@
 body {
     min-width: 350px;
+    background-color: #82a5be;
+}
+
+#content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@font-face {
+    font-family: 'Code Bold';
+    src: url('../assets/fonts/CODE Bold.otf')
+}
+
+#content h1 {
+    margin: 30px auto;
+    text-align: center;
+    font-family: 'Code Bold';
+    font-size: 45px;
+    color: #144e77;
+}
+
+#content form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 500px;
+    padding: 10px;
+    background-color: #d7e6f1;
+    color: #144e77;
+}
+
+#content form label, #name, #email, #message {
+    margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#content form label {
+    font-size: 16px;
+}
+
+#send {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    background-color: #144e77;
+    border-radius: 3px;
+    color: #fff;
+}
+
+#send:hover {
+    background-color: rgba(20, 78, 119, 0.9);
 }
