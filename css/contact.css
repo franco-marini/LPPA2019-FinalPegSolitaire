@@ -19,7 +19,7 @@ body {
     margin: 30px auto;
     text-align: center;
     font-family: 'Code Bold';
-    font-size: 45px;
+    font-size: 40px;
     color: #144e77;
 }
 
@@ -31,6 +31,8 @@ body {
     width: 500px;
     padding: 10px;
     background-color: #d7e6f1;
+    border-radius: 3px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.65); /*Horizontal lenght, Vertical lenght, Blur radius, spread radius*, color*/
     color: #144e77;
 }
 
@@ -41,6 +43,10 @@ body {
 
 #content form label {
     font-size: 16px;
+}
+
+#name, #email, #message {
+        border: 1px solid #BBBBBB;
 }
 
 #send {
