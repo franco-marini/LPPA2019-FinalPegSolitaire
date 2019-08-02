@@ -16,10 +16,13 @@ body {
 }
 
 #content h1 {
-    margin: 30px auto;
+    position: relative;
+    display: flex;
+    align-self: center;
+    margin: 20px;
     text-align: center;
     font-family: 'Code Bold', Arial, Helvetica, sans-serif;
-    font-size: 40px;
+    font-size: 20px;
     color: #144e77;
 }
 
@@ -28,7 +31,8 @@ body {
     display: flex;
     flex-direction: column;
     align-self: center;
-    padding: 10px;
+    width: 200px;
+    padding: 15px;
     background-color: #d7e6f1;
     border-radius: 3px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.65); /*Horizontal lenght, Vertical lenght, Blur radius, spread radius*, color*/
@@ -40,7 +44,7 @@ body {
     display: flex;
     flex-direction: column;
     align-self: center;
-    width: 500px;
+    width: 100%;
 }
 
 #formContent form label, #name, #email, #message {
@@ -49,12 +53,21 @@ body {
 }
 
 #formContent form label {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 #name, #email, #message {
-    padding-left: px;
+    padding-left: 2px;
     border: 1px solid #BBBBBB;
+    font-size: 8px;
+}
+
+#name, #email {
+    height: 10px;
+}
+
+#message {
+    height: 60px;
 }
 
 #send {
@@ -62,15 +75,175 @@ body {
     display: flex;
     justify-content: center;
     align-self: center;
-    width: 90px;
-    height: 30px;
-    line-height: 30px;
+    width: 40px;
+    height: 20px;
     border: none;
     background-color: #144e77;
     border-radius: 3px;
     color: #fff;
+    font-size: 10px;
 }
 
 #send:hover {
     background-color: rgba(20, 78, 119, 0.9);
+}
+
+@media (min-width: 480px) {
+    #content h1 {
+        font-size: 25px;
+    }
+
+    #formContent {
+        width: 250px;
+    }
+
+    #formContent form label {
+        font-size: 12px;
+    }
+
+    #name, #email, #message {
+        font-size: 11px;
+    }
+    
+    #name, #email {
+        height: 20px;
+    }
+    
+    #message {
+        height: 60px;
+    }
+
+    #send {
+        width: 60px;
+        height: 20px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    #content h1 {
+        font-size: 35px;
+    }
+
+    #formContent {
+        width: 350px;
+    }
+
+    #formContent form label {
+        font-size: 14px;
+    }
+
+    #name, #email, #message {
+        font-size: 13px;
+    }
+    
+    #name, #email {
+        height: 22px;
+    }
+    
+    #message {
+        height: 66px;
+    }
+
+    #send {
+        width: 65px;
+        height: 25px;
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 900px) {
+    #content h1 {
+        font-size: 40px;
+    }
+
+    #formContent {
+        width: 400px;
+    }
+
+    #formContent form label {
+        font-size: 16px;
+    }
+
+    #name, #email, #message {
+        font-size: 15px;
+    }
+    
+    #name, #email {
+        height: 24px;
+    }
+    
+    #message {
+        height: 72px;
+    }
+
+    #send {
+        width: 70px;
+        height: 30px;
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #content h1 {
+        font-size: 45px;
+    }
+
+    #formContent {
+        width: 450px;
+    }
+
+    #formContent form label {
+        font-size: 18px;
+    }
+
+    #name, #email, #message {
+        font-size: 17px;
+    }
+    
+    #name, #email {
+        height: 26px;
+    }
+    
+    #message {
+        height: 78px;
+    }
+
+    #send {
+        width: 75px;
+        height: 35px;
+        font-size: 21px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #content h1 {
+        font-size: 50px;
+    }
+
+    #formContent {
+        width: 500px;
+    }
+
+    #formContent form label {
+        font-size: 20px;
+    }
+
+    #name, #email, #message {
+        font-size: 19px;
+    }
+    
+    #name, #email {
+        height: 28px;
+    }
+    
+    #message {
+        height: 84px;
+    }
+
+    #send {
+        width: 80px;
+        height: 40px;
+        font-size: 24px;
+    }
 }
