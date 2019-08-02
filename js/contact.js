@@ -26,7 +26,7 @@ var checkEmail = function(email) {
     else {
         return false
     }
-  }
+}
 
 var sendEmail = function() {
     //Get all the textbox values
