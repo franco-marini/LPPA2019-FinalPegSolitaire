@@ -11,269 +11,7 @@ var selectedPeg = { x: undefined, y: undefined }
 var suggestions = []
 var allSuggestions = []
 var totalScore = 0
-var savedGames = []
-var savedScores = []
 
-var startGame = function() {
-    //Generate the board, the pegs and holes
-    var boardElement = document.getElementById('board')
-    boardElement.innerHTML = generateBoard()
-    //Asing the click buttons to buttons
-    var pegs = boardElement.getElementsByClassName('ballPlace')
-    addPegsEventHandlers(pegs)
-    var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
-    addHolesEventHandlers(holes)
-    //Board control buttons
-    document.getElementById('openNav').onclick = openNav
-    document.getElementById('resetGame').onclick = resetGame
-}
-
-//Show the save menu
-//Change the style of the vertical menu
-var openNav = function() {
-    document.getElementById('verticalMenu').classList.add('width')
-    document.getElementById('content').classList.add('marginLeft')
-}
-
-//Hide the save menu
-//Change the style of the vertical menu
-var closeNav = function() {
-    document.getElementById('verticalMenu').classList.remove('width')
-    document.getElementById('content').classList.remove('marginLeft')
-}
-
-var closePopup = function() {
-    //Change by class the overlay to hidden
-    overlay = document.getElementsByClassName('overlay')[0]
-    overlay.classList.remove('active')
-    overlay.getElementsByTagName('form')[0].classList.add('inactive')
-}
-
-var showPopupMessage = function(message) {
-    var divMessage = document.getElementById('message')
-    divMessage.innerHTML = '<h2>' + message + '</h2>'
-}
-
-var openPopup = function(message) {
-    //Change by class the overlay to visible
-    overlay = document.getElementsByClassName('overlay')[0]
-    overlay.classList.add('active')
-    //Show the form to save the score on the high scores
-    overlay.getElementsByTagName('form')[0].classList.remove('inactive')
-    showPopupMessage(message)
-}
-
-var openPopupBtn = function() {
-    closeNav()
-    //Change by class the overlay to visible
-    overlay = document.getElementsByClassName('overlay')[0]
-    overlay.classList.add('active')
-    //Only show the High scores, it dosent show the form to save the score
-    overlay.getElementsByTagName('form')[0].classList.add('inactive')
-    var divMessage = document.getElementById('message')
-    divMessage.innerText = ''
-}
-
-//#region Save Game functions
-//Returns the date and hour of today
-var getDate = function() {
-    var date = new Date()
-    var yyyy = date.getFullYear()
-    var dd = date.getDate()
-    var mm = (date.getMonth() + 1)
-    //Puts the 0 for the numbers below 2 digits
-    if(dd < 10) {
-        dd = '0' + dd
-    }
-    if(mm < 10) {
-        mm = '0' + mm
-    }
-    var currentDay = yyyy + '-' + mm + '-' + dd
-    var hours = date.getHours()
-    var minutes = date.getMinutes()
-    var seconds = date.getSeconds()
-    //Puts the 0 for the numbers below 2 digits
-    if(hours < 10) {
-        hours = '0' + hours
-    }
-    if(minutes < 10) {
-        minutes = '0' + minutes
-    }
-    if(seconds < 10) {
-        seconds = '0' + seconds
-    }
-    return currentDay + 'T' + hours + ':' + minutes + ':' + seconds
-}
-
-var compareDateScore = function(a, b) {
-    //Order by best score and lastest date
-    return b.score - a.score || new Date(b.date) - new Date(a.date) 
-}
-
-var saveScore = function() {
-    var nameTxt = document.getElementById('scoreName').value
-    //Validations - CHECK
-    if(nameTxt.length < 3) {
-        alert('Debes escribir por lo menos 3 caracteres')
-        return
-    }
-    if(nameTxt.length > 6) {
-        alert('Maximo 6 caracteres')
-        return
-    }
-    //Create a new object
-    var newScore = {
-        date: getDate(),
-        name: nameTxt,
-        score: totalScore
-    }
-    //Clean the textbox
-    document.getElementById('scoreName').value = ''
-    //Save the first 10 best scores
-    savedScores.push(newScore)
-    //Order by date and score
-    savedScores.sort(compareDateScore)
-    //Slice the array to top 10
-    savedScores = savedScores.slice(0,10)
-    //Save the scores on localstorage parsing the array to JSON format
-    localStorage.setItem('savedScores', JSON.stringify(savedScores))
-    closePopup()
-    resetGame()
-}
-
-var loadScores = function() {
-    //Get the array from localstorage and parse the from JSON format
-    savedScores = JSON.parse(localStorage.getItem('savedScores'))
-    if(savedScores === null) {
-        savedScores = []
-    }
-}
-
-var generateSavedScore = function(index) {
-    //Generate one save score item 
-    var html = '<li class="savedScore">' 
-    html += savedScores[index].date + ' - ' + savedScores[index].name + ' - ' + savedScores[index].score
-    html += '</li>'
-    return html
-}
-
-var generateScoreTable = function() {
-    //Generate the high score table
-    var html = '<ul>'
-    for(let i = 0; i < savedScores.length; i++) {
-        html += generateSavedScore(i)
-    }
-    html += '</ul>'
-    document.getElementById('bestScores').innerHTML = html
-}
-
-var saveGame = function() {
-    var nameTxt = document.getElementById('nameTxt').value
-    //Checks the length of the name for save the game
-    if(nameTxt.length < 3) {
-        alert('Debes escribir por lo menos 3 caracteres')
-        return
-    }
-    if(nameTxt.length > 13) {
-        alert('Debes escribir hasta 13 caracteres')
-        return
-    }
-    //Asign the board to an object called newGame
-    var newGame = {
-        date: getDate(),
-        name: nameTxt,
-        score: totalScore,
-        board: board
-    }
-    document.getElementById('nameTxt').value = ''
-    //Save the games on localstorage parsing the array to JSON format
-    savedGames.push(newGame)
-    localStorage.setItem('savedGames', JSON.stringify(savedGames))
-    generateGamesTable()
-    closeNav()
-}
-
-var compareDate = function(a, b) {
-    //Order by newer the saved games by date
-    return new Date(b.date) - new Date(a.date)
-}
-
-var loadGames = function() {
-    //Get the array from localstorage and parse the from JSON format
-    savedGames = JSON.parse(localStorage.getItem('savedGames'))
-    if(savedGames === null) {
-        //Fix the problem with the array when is null
-        savedGames = []
-    }
-    //Sort by date all the saved games
-    savedGames.sort(compareDate)
-}
-
-var generateSavedGame = function(index) {
-    //Generate one saved game item
-    var html = '<li class="savedGame">'
-    html += savedGames[index].date + ' - ' + savedGames[index].name
-    html += ' <input type="radio" name="rbtGame" value="' + savedGames[index].date + '">'
-    html += '</li>'
-    return html
-}
-
-var generateGamesTable = function() {
-    //Generate save game table
-    var html = '<ul>'
-    for(let i = 0; i < savedGames.length; i++) {
-        html += generateSavedGame(i)
-    }
-    html += '</ul>'
-    document.getElementById('listGames').innerHTML = html
-}
-
-var findGame = function() {
-    //Get all the elements with the name rbtGame (radio button)
-    var rates = document.getElementsByName('rbtGame')
-    var rateValue
-    //Checks which radio button is selected
-    for(let i = 0; i < rates.length; i++) {
-        if(rates[i].checked) {
-            //Save the value of the radiobutton seleced
-            rateValue = rates[i].value
-        }
-    }
-    //Compares the radio button selected with all the saved games
-    var game
-    for(let i = 0; i < savedGames.length; i++) {
-        //Search for the equal date
-        if(savedGames[i].date == rateValue) {
-            game = savedGames[i]
-        }
-    }
-    return game
-}
-
-var loadGame = function() {
-    board = findGame().board
-    totalScore = findGame().score
-    startGame()
-    closeNav()
-}
-
-var deleteGame = function() {
-    savedGames.splice(savedGames.indexOf(findGame()), 1)
-    localStorage.setItem('savedGames', JSON.stringify(savedGames))
-    generateGamesTable()
-}
-
-var resetGame = function() {
-    location.reload()
-}
-//#endregion
-
-var showScore = function() {
-    var html = '<div id="score"><h2>Puntaje: ' + totalScore + ' </h2></div>'
-    return html
-}
-
-//#region Functional of the game
 //Creates an id for a peg
 var createId = function(rowN, colN) {
     return 'peg-' + rowN + '-' + colN
@@ -323,11 +61,18 @@ var generateRow = function(row, rowN) {
     return html
 }
 
+//Generates the button bellow the board
 var generateControlButtons = function() {
     var html = '<div id="control">'
     html += '<button class="control" id="openNav">Menu</button>'
     html += '<button class="control" id="resetGame">Reiniciar</button>'
     html += '</div>'
+    return html
+}
+
+//Generate the score
+var showScore = function() {
+    var html = '<div id="score"><h2>Puntaje: ' + totalScore + ' </h2></div>'
     return html
 }
 
@@ -521,7 +266,20 @@ var addHolesEventHandlers = function(holes) {
         holes[i].onclick = movePeg
     }
 }
-//#endregion
+
+var startGame = function() {
+    //Generate the board, the pegs and holes
+    var boardElement = document.getElementById('board')
+    boardElement.innerHTML = generateBoard()
+    //Asing the click buttons to buttons
+    var pegs = boardElement.getElementsByClassName('ballPlace')
+    addPegsEventHandlers(pegs)
+    var holes = boardElement.getElementsByClassName('ballPlaceEmpty')
+    addHolesEventHandlers(holes)
+    //Board control buttons
+    document.getElementById('openNav').onclick = openNav
+    document.getElementById('resetGame').onclick = resetGame
+}
 
 //Initialize the game
 var init = function() {
