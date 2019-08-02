@@ -251,10 +251,10 @@ var movePeg = function(evt) {
         if(checkPlayerLoose()) {
             var pegs = document.getElementsByClassName('ballPlace')
             if(pegs.length === 1) {
-                openPopup('&#127881&#10024GANASTE&#10024&#127881')
+                openPopupForm('&#127881&#10024GANASTE&#10024&#127881')
             }
             else {
-                openPopup('Estuviste cerca')
+                openPopupForm('Estuviste cerca')
             }
         }
     }
@@ -294,7 +294,7 @@ var init = function() {
     document.getElementById('saveGame').onclick = saveGame
     document.getElementById('loadGame').onclick = loadGame
     document.getElementById('deleteGame').onclick = deleteGame
-    document.getElementById('showScores').onclick = openPopupBtn
+    document.getElementById('showScores').onclick = openPopup
     //Popup buttons
     document.getElementById('closePopup').onclick = closePopup
     document.getElementById('saveScore').onclick = saveScore

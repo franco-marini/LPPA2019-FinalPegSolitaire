@@ -24,7 +24,7 @@ var showPopupMessage = function(message) {
     divMessage.innerHTML = '<h2>' + message + '</h2>'
 }
 
-var openPopup = function(message) {
+var openPopupForm = function(message) {
     //Change by class the overlay to visible
     overlay = document.getElementsByClassName('overlay')[0]
     overlay.classList.add('active')
@@ -33,7 +33,7 @@ var openPopup = function(message) {
     showPopupMessage(message)
 }
 
-var openPopupBtn = function() {
+var openPopup = function() {
     closeNav()
     //Change by class the overlay to visible
     overlay = document.getElementsByClassName('overlay')[0]

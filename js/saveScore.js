@@ -28,7 +28,7 @@ var saveScore = function() {
     //Save the scores on localstorage parsing the array to JSON format
     localStorage.setItem('savedScores', JSON.stringify(savedScores))
     closePopup()
-    resetGame()
+    openPopup()
 }
 
 var loadScores = function() {
