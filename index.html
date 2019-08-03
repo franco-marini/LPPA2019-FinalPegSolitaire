@@ -17,22 +17,22 @@
     <body>
         <div id="content">
                 <div id="verticalMenu">
-                    <a href="#" id="closeNav">&#10006;</a>                    
+                    <a id="closeNav" href="#">&#10006;</a>                    
                     <form>
                         <h2>Juegos Guardados</h2>
-                        <input type="text" id="nameTxt" placeholder="Nombre">
-                        <input type="button" value="Guardar" id="saveGame">
+                        <input id="nameTxt" type="text" placeholder="Nombre">
+                        <input id="saveGame" type="button" value="Guardar">
                         <div id="listGames"></div>
                         <div id="buttons">
-                            <input type="button" value="Cargar" id="loadGame">
-                            <input type="button" value="Eliminar" id="deleteGame">
-                            <input type="button" value="Puntajes" id="showScores">
+                            <input id="loadGame" type="button" value="Cargar">
+                            <input id="deleteGame" type="button" value="Eliminar">
+                            <input id="showScores" type="button" value="Puntajes">
                         </div>
                     </form>
                     </div>
             <header>
                 <div class="headerTitle">
-                    <img src="./assets/images/icon.png" alt="" class="headerImage">
+                    <img class="headerImage" src="./assets/images/icon.png" alt="">
                     <h1>Peg Solitaire</h1>
                 </div>
                 <div class="headerDescription">
@@ -51,16 +51,16 @@
             </footer>
             <div class="overlay">
                 <div class="popup">
-                    <a href="#" id="closePopup" class="closePopup">&#10006;</a>
+                    <a id="closePopup" class="closePopup" href="#">&#10006;</a>
                     <div id="message"></div>
                     <h3>MEJORES PUNTAJES</h3>
                     <div id="bestScores"></div>
-                    <form action="" class="inactive">
+                    <form class="inactive" action="">
                         <div class="containerInputs">
-                            <input type="text" id="scoreName" placeholder="Nombre">
+                            <input id="scoreName" type="text" placeholder="Nombre">
                         </div>
-                        <input type="submit" value="Guardar" id="saveScore" class="saveScore">
-                        <input type="submit" value="Reiniciar" id="resetGamePopup" class="resetGame">
+                        <input id="saveScore" class="saveScore" type="submit" value="Guardar">
+                        <input id="resetGamePopup" class="resetGame" type="submit" value="Reiniciar">
                     </form>
                 </div>
             </div>
