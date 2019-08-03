@@ -1,5 +1,5 @@
 # Peg Solitaire
-This is my final proyect for the subject "Programming languages for administration" at UAI.
+This is my final project for the subject "Programming languages for administration" at UAI.
 <br> **Professor**: [David Curras](https://github.com/davidcurras)
 ## Play
 Give it a test to the game hosted on [Github Pages](https://franco-marini.github.io/LPPA2019-FinalPegSolitaire/#)
