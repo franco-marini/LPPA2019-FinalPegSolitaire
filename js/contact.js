@@ -68,5 +68,4 @@ var init = function() {
     document.getElementById('send').onclick = sendEmail
 }
 
-
 window.onload = init

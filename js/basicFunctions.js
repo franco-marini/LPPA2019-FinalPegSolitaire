@@ -4,6 +4,9 @@ var getDate = function() {
     var yyyy = date.getFullYear()
     var dd = date.getDate()
     var mm = (date.getMonth() + 1)
+    var hours = date.getHours()
+    var minutes = date.getMinutes()
+    var seconds = date.getSeconds()
     //Puts the 0 for the numbers below 2 digits
     if(dd < 10) {
         dd = '0' + dd
@@ -12,9 +15,6 @@ var getDate = function() {
         mm = '0' + mm
     }
     var currentDay = yyyy + '-' + mm + '-' + dd
-    var hours = date.getHours()
-    var minutes = date.getMinutes()
-    var seconds = date.getSeconds()
     //Puts the 0 for the numbers below 2 digits
     if(hours < 10) {
         hours = '0' + hours

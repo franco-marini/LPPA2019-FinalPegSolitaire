@@ -60,6 +60,7 @@ var findGame = function() {
     //Get all the elements with the name rbtGame (radio button)
     var rates = document.getElementsByName('rbtGame')
     var rateValue
+    var game
     //Checks which radio button is selected
     for(let i = 0; i < rates.length; i++) {
         if(rates[i].checked) {
@@ -68,7 +69,6 @@ var findGame = function() {
         }
     }
     //Compares the radio button selected with all the saved games
-    var game
     for(let i = 0; i < savedGames.length; i++) {
         //Search for the equal date
         if(savedGames[i].date == rateValue) {
