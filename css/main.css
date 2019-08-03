@@ -62,8 +62,9 @@ body {
     margin: 10px;
 }
 
-#verticalMenu h1 {
+#verticalMenu h2 {
     margin: 0 0 10px;
+    font-size: 15px;
     font-weight: bolder;
     text-align: center;
 }
