@@ -160,21 +160,21 @@ header {
 
 .ballPlace {
     background-color: #fbff15;
-    border: 2px solid #013d78;
+    border: 2px solid #7c7e00;
 }
 
 .ballSelected {
     background-color: #F1060B;
-    border: 2px solid #013d78;
+    border: 2px solid rgb(133, 7, 9);
 }
 
 .ballPlace:hover {
     background-color: #989b0d;
-    border: 2px solid #013d78;
+    border: 2px solid #7c7e00;
 }
 
 .ballPlaceEmpty {
-    background-color: #DDDDDD;
+    background-color: #EEEEEE;
     border:  #DDDDDD  solid 2px;
 }
 
