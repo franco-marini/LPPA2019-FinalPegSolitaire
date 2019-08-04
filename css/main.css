@@ -1,5 +1,5 @@
 body {
-    background-color: #82a5be;
+    background-color: #DDDDDD;
     min-width: 350px;
 }
 
@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    color: #144e77;
+    color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -34,10 +34,11 @@ body {
     width: 0px; 
     top: 10px;
     left: 10px;    
-    background-color: #82a5be;
+    background-color: #DDDDDD;
     overflow-x: hidden; /*Hidden the elements when the menu disapears*/
     transition: 0.5s;   /*Create the effect to slow down*/
     font-size: 14px;
+    color: #252850;
 }
 
 #verticalMenu.width {
@@ -77,12 +78,12 @@ body {
     border: none;
 }
 
-#verticalMenu form input[type="button"], .control {
+#verticalMenu form input[type="button"] {
     width: 62px;
     height: 25px;
     margin: 6px;
-    background-color: #778996;
-    border: 1.5px solid #40546d;
+    background-color: #252850;
+    border: none;
     border-radius: 5px;
     color: white;
     font-size: 12px;
@@ -97,8 +98,8 @@ body {
     margin-top: 5px;
 }
 
-#verticalMenu form input[type="button"]:hover, .control:hover {
-    background-color: #8fa9bb;
+#verticalMenu form input[type="button"]:hover {
+    background-color: rgb(37,40,80,.9);
 }
 
 .savedGame {
@@ -114,7 +115,7 @@ header {
     align-items: center;
     padding-top: 15px;
     margin: 10px 10px 0 10px;
-    background-color: 	#a7c1d4 ;
+    background-color: 	rgb(180, 0, 3);
 }
 
 .headerTitle {
@@ -139,7 +140,7 @@ header {
     align-items: center;
     margin: 10px 10px 10px 10px;
     padding: 10px;
-    background-color:	#d7e6f1;
+    background-color:	#252850;
 }
 
 #score {
@@ -158,23 +159,23 @@ header {
 }
 
 .ballPlace {
-    background-color: #105ebb;
+    background-color: #fbff15;
     border: 2px solid #013d78;
 }
 
 .ballSelected {
-    background-color: #d7e6f1;
-    border: 2px solid #82a5be;
+    background-color: #F1060B;
+    border: 2px solid #013d78;
 }
 
 .ballPlace:hover {
-    background-color: #82a5be;
-    border: 2px solid #d7e6f1;
+    background-color: #989b0d;
+    border: 2px solid #013d78;
 }
 
 .ballPlaceEmpty {
-    background-color: #fff;
-    border: #82a5be solid 2px;
+    background-color: #DDDDDD;
+    border:  #DDDDDD  solid 2px;
 }
 
 .ballPlaceEmpty:hover {
@@ -183,8 +184,8 @@ header {
 }
 
 .ballPlaceAvailable {
-    background-color: #aadab4;
-    border: #82be87 solid 2px;
+    background-color: #76d100;
+    border: #007427 solid 2px;
 }
 
 .hidden {
@@ -202,16 +203,22 @@ header {
     width: 60px;
     height: 20px;
     margin: 6px;
+    background-color: #ffffff;
     border-radius: none;
     border: 2px solid #40546d;
-    font-size: 8px; 
+    font-size: 8px;
+    color: #252850; 
+}
+
+#board .control:hover {
+    background-color: #BBBBBB;
 }
 
 /*-------------Footer--------------*/
 footer {
     margin: 0 10px 10px 10px;
     padding-top: 10px;
-    background-color: #a7c1d4;
+    background-color: rgb(180, 0, 3);
     text-align: center;
 }
 
@@ -251,6 +258,7 @@ footer .footerDescription a {
     background-color: #f8f8f8f8;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.65); /*Simulate a shadow*/
     border-radius: 3px;
+    color: #252850;
     text-align: center;
 }
 
@@ -314,13 +322,13 @@ footer .footerDescription a {
     line-height: 30px;
     padding: 0px 10px;
     border: none;
-    background-color: #144e77;
+    background-color: #252850;
     border-radius: 3px;
-    color: #fff;
+    color: #ffffff;
 }
 
 .popup form input[type="submit"]:hover {
-    background-color: rgba(20, 78, 119, 0.9);
+    background-color: rgb(37,40,80,.9);
 }
 
 @media (min-width: 480px) {
