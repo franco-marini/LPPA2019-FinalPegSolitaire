@@ -13,16 +13,16 @@ var allSuggestions = []
 var totalScore = 0
 
 //Creates an id for a peg
-var createId = function(rowN, colN) {
+var createId = function (rowN, colN) {
     return 'peg-' + rowN + '-' + colN
 }
 
 //Get the position of the peg from an id
-var getPositionFromId = function(id) {
+var getPositionFromId = function (id) {
     //Checks if the id is not null and if id has length, if is true split the string
     var idParts = id && id.length ? id.split('-') : []
     //Checks if the array has 3 elements
-    if(idParts.length === 3) {
+    if (idParts.length === 3) {
         //Returns the value x and y
         return {
             x: parseInt(idParts[1]),
@@ -34,14 +34,14 @@ var getPositionFromId = function(id) {
 }
 
 //Generate all de the cells in one row
-var generateCell = function(cell, rowN, colN) {
+var generateCell = function (cell, rowN, colN) {
     //Id is the location of the peg
     //Depend of the value, set the class 
     var html = '<button id="' + createId(rowN, colN) + '" class="'
-    if(cell && cell.value) {
+    if (cell && cell.value) {
         html += 'ballPlace'
     }
-    else if(cell && cell.value == 0) {
+    else if (cell && cell.value == 0) {
         html += 'ballPlaceEmpty'
     }
     else {
@@ -52,9 +52,9 @@ var generateCell = function(cell, rowN, colN) {
 }
 
 //Generate the row
-var generateRow = function(row, rowN) {
+var generateRow = function (row, rowN) {
     var html = '<div class="row">'
-    for(let column = 0; column < row.length; column++) {
+    for (let column = 0; column < row.length; column++) {
         html += generateCell(row[column], rowN, column)
     }
     html += '</div>'
@@ -62,7 +62,7 @@ var generateRow = function(row, rowN) {
 }
 
 //Generates the button bellow the board
-var generateControlButtons = function() {
+var generateControlButtons = function () {
     var html = '<div id="control">'
     html += '<button class="control" id="openNav">Menu</button>'
     html += '<button class="control" id="resetGame">Reiniciar</button>'
@@ -71,16 +71,16 @@ var generateControlButtons = function() {
 }
 
 //Generate the score
-var showScore = function() {
+var showScore = function () {
     var html = '<div id="score"><h2>Puntaje: ' + totalScore + ' </h2></div>'
     return html
 }
 
 //Generate all the rows for the game
-var generateBoard = function() {
+var generateBoard = function () {
     //Show the score on the top of the board
     var html = showScore() + '<div class="board">'
-    for(let row = 0; row < board.length; row++) {
+    for (let row = 0; row < board.length; row++) {
         html += generateRow(board[row], row)
     }
     html += '</div>'
@@ -90,26 +90,26 @@ var generateBoard = function() {
 }
 
 //Changes the class when unselect a peg
-var unselectPeg = function() {
+var unselectPeg = function () {
     //Checks if there is a selected peg
-    if(selectedPeg.x !== undefined && selectedPeg.y !== undefined) {
+    if (selectedPeg.x !== undefined && selectedPeg.y !== undefined) {
         var prevSelectedId = createId(selectedPeg.x, selectedPeg.y)
         document.getElementById(prevSelectedId).className = 'ballPlace'
         var suggestions = document.getElementsByClassName('ballPlaceAvailable')
-        for(let i = 0; i < suggestions.length; i++) {
+        for (let i = 0; i < suggestions.length; i++) {
             suggestions[i].className = 'ballPlaceEmpty'
         }
     }
 }
 
 //Returns an element by the id
-var getElement = function(id) {
+var getElement = function (id) {
     var element = document.getElementById(id)
     return element || {}
 }
 
 //Returns from position the near peg
-var getNearPeg = function(x, y) {
+var getNearPeg = function (x, y) {
     var near = {
         above: getElement(createId(x - 1, y)),
         left: getElement(createId(x, y - 1)),
@@ -120,7 +120,7 @@ var getNearPeg = function(x, y) {
 }
 
 //Returns from position the possible peg
-var getPossiblePeg = function(x, y) {
+var getPossiblePeg = function (x, y) {
     var possible = {
         above: getElement(createId(x - 2, y)),
         left: getElement(createId(x, y - 2)),
@@ -130,42 +130,42 @@ var getPossiblePeg = function(x, y) {
     return possible
 }
 
-var showSuggestions = function() {
+var showSuggestions = function () {
     //Get the elements which are near the selected peg
     var near = getNearPeg(selectedPeg.x, selectedPeg.y)
     //Get the elements which are possible moves of the selected peg
     var possible = getPossiblePeg(selectedPeg.x, selectedPeg.y)
     //Changes the class of buttons which are possible move in all axis
-    if(near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
+    if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
         possible.above.className = 'ballPlaceAvailable'
         suggestions.push(possible.above.id)
     }
-    if(near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
+    if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
         possible.left.className = 'ballPlaceAvailable'
         suggestions.push(possible.left.id)
     }
-    if(near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
+    if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
         possible.right.className = 'ballPlaceAvailable'
         suggestions.push(possible.right.id)
     }
-    if(near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
+    if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
         possible.below.className = 'ballPlaceAvailable'
         suggestions.push(possible.below.id)
     }
 }
 
-var selectPeg = function(evt) {
+var selectPeg = function (evt) {
     //Clean the suggestions
     suggestions = []
     //Gets the peg
     var peg = evt.target
     //Convert the id (x, y) into int numbers
     var pos = getPositionFromId(peg.id)
-    if(pos.x !== undefined && pos.y !== undefined) {
+    if (pos.x !== undefined && pos.y !== undefined) {
         //Restores the classes
         unselectPeg()
         //Checks if the new selected peg is the same
-        if(selectedPeg.x === pos.x && selectedPeg.y === pos.y) {
+        if (selectedPeg.x === pos.x && selectedPeg.y === pos.y) {
             unselectPeg()
             selectedPeg.x = undefined
             selectedPeg.y = undefined
@@ -184,39 +184,39 @@ var selectPeg = function(evt) {
 }
 
 //Asign to all the pegs the function--> selectPeg
-var addPegsEventHandlers = function(pegs) {
-    for(let i = 0; i < pegs.length; i++) {
+var addPegsEventHandlers = function (pegs) {
+    for (let i = 0; i < pegs.length; i++) {
         pegs[i].onclick = selectPeg
     }
 }
 
-var checkPlayerLoose = function() {
+var checkPlayerLoose = function () {
     //Get all the elements with the class ballPlace
     var pegs = document.getElementsByClassName('ballPlace')
     allSuggestions = []
-    for(let i = 0; i < pegs.length; i++) {
+    for (let i = 0; i < pegs.length; i++) {
         var pos = getPositionFromId(pegs[i].id)
-        if(pos.x !== undefined && pos.y !== undefined) {
+        if (pos.x !== undefined && pos.y !== undefined) {
             //Get the elements which are near the selected peg
             var near = getNearPeg(pos.x, pos.y)
             //Get the elements which are possible moves of the selected peg
             var possible = getPossiblePeg(pos.x, pos.y)
             //Changes the class of buttons which are possible move in all axis
-            if(near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
+            if (near.above.className === 'ballPlace' && possible.above.className === 'ballPlaceEmpty') {
                 allSuggestions.push(possible.above.id)
             }
-            if(near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
+            if (near.left.className === 'ballPlace' && possible.left.className === 'ballPlaceEmpty') {
                 allSuggestions.push(possible.left.id)
             }
-            if(near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
+            if (near.right.className === 'ballPlace' && possible.right.className === 'ballPlaceEmpty') {
                 allSuggestions.push(possible.right.id)
             }
-            if(near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
+            if (near.below.className === 'ballPlace' && possible.below.className === 'ballPlaceEmpty') {
                 allSuggestions.push(possible.below.id)
             }
         }
     }
-    if(allSuggestions.length === 0) {
+    if (allSuggestions.length === 0) {
         return true
     }
     else {
@@ -224,13 +224,13 @@ var checkPlayerLoose = function() {
     }
 }
 
-var movePeg = function(evt) {
+var movePeg = function (evt) {
     //Gets the peg clicked
     var id = evt.target.id
     var pos = getPositionFromId(id)
-    if(pos.x !== undefined && pos.y !== undefined) {
+    if (pos.x !== undefined && pos.y !== undefined) {
         //Returns true if the element is in the array suggestions 
-        if(suggestions.includes(id)) {
+        if (suggestions.includes(id)) {
             var oldRow = selectedPeg.x
             var oldCol = selectedPeg.y
             var newRow = pos.x
@@ -248,9 +248,9 @@ var movePeg = function(evt) {
             totalScore += 10
             init()
         }
-        if(checkPlayerLoose()) {
+        if (checkPlayerLoose()) {
             var pegs = document.getElementsByClassName('ballPlace')
-            if(pegs.length === 1) {
+            if (pegs.length === 1) {
                 openPopupForm('&#127881&#10024GANASTE&#10024&#127881')
             }
             else {
@@ -261,13 +261,13 @@ var movePeg = function(evt) {
 }
 
 //Asign to all the holes the function--> movePeg
-var addHolesEventHandlers = function(holes) {
-    for(let i = 0; i < holes.length; i++) {
+var addHolesEventHandlers = function (holes) {
+    for (let i = 0; i < holes.length; i++) {
         holes[i].onclick = movePeg
     }
 }
 
-var startGame = function() {
+var startGame = function () {
     //Generate the board, the pegs and holes
     var boardElement = document.getElementById('board')
     boardElement.innerHTML = generateBoard()
@@ -282,7 +282,7 @@ var startGame = function() {
 }
 
 //Initialize the game
-var init = function() {
+var init = function () {
     //localStorage.clear()
     loadGames()
     generateGamesTable()
