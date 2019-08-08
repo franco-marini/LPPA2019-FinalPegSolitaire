@@ -64,8 +64,13 @@ var launchMailClient = function() {
     location.href = 'mailto:'+emailTo+'?cc='+emailCC+'&subject=Contacto&body='+message
 }
 
+var returnMain = function() {
+    location.href = 'index.html'
+}
+
 var init = function() {
     document.getElementById('send').onclick = sendEmail
+    document.getElementById('return').onclick = returnMain
 }
 
 window.onload = init
