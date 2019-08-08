@@ -7,7 +7,6 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
     color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
 }
