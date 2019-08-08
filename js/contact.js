@@ -7,12 +7,7 @@ var checkAlphaNumeric = function (inputTxt) {
     //Regular expression to allow only letters, numbers and spaces
     var letterNumber = /^[a-z\d\s]+$/i
     //Checks if the input text is alphanumeric
-    if (letterNumber.test(inputTxt)) {
-        return true
-    }
-    else {
-        return false
-    }
+    return letterNumber.test(inputTxt)
 }
 
 //Function to check the email format
@@ -20,12 +15,7 @@ var checkEmail = function (email) {
     //Regular expression to allow emails 
     var reEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     //Checks if the email contains the regular expression
-    if (reEmail.test(email)) {
-        return true
-    }
-    else {
-        return false
-    }
+    return reEmail.test(email)
 }
 
 var sendEmail = function () {
